@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>엘로이 수학</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧮</text></svg>">
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', sans-serif; background: #f5f7fb; color: #1a202c; padding-bottom: 80px; }
+header { background: #fff; padding: 14px 16px; border-bottom: 1px solid #e5e7eb; position: sticky; top: 0; z-index: 100; display: flex; justify-content: space-between; align-items: center; }
+h1 { font-size: 18px; font-weight: 700; color: #1d4ed8; }
+.teacher-badge { font-size: 12px; padding: 4px 10px; background: #dbeafe; color: #1e40af; border-radius: 12px; font-weight: 600; }
+nav { display: flex; background: #fff; border-bottom: 1px solid #e5e7eb; overflow-x: auto; position: sticky; top: 51px; z-index: 99; }
+nav button { flex: 1; min-width: 80px; padding: 12px 8px; background: none; border: none; font-size: 13px; cursor: pointer; color: #64748b; font-weight: 500; border-bottom: 3px solid transparent; }
+nav button.active { color: #1d4ed8; border-bottom-color: #1d4ed8; font-weight: 700; }
+main { padding: 16px; max-width: 900px; margin: 0 auto; }
+.tab { display: none; }
+.tab.active { display: block; }
+.section-title { font-size: 14px; font-weight: 700; color: #475569; margin: 16px 0 8px; }
+.summary { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 16px; }
+.summary-card { background: #fff; padding: 14px 10px; border-radius: 10px; text-align: center; box-shadow: 0 1px 2px rgba(0,0,0,0.04); }
+.summary-card .num { font-size: 22px; font-weight: 700; color: #1d4ed8; }
+.summary-card .lbl { font-size: 11px; color: #64748b; margin-top: 2px; }
+.class-divider { padding: 8px 0 4px; font-size: 13px; font-weight: 700; color: #334155; border-top: 1px solid #e2e8f0; margin-top: 12px; }
+.class-divider:first-child { border-top: none; margin-top: 0; }
+.student-card { background: #fff; border-radius: 10px; padding: 12px 14px; margin-bottom: 8px; box-shadow: 0 1px 2px rgba(0,0,0,0.04); display: flex; justify-content: space-between; align-items: center; }
+.student-name { font-size: 15px; font-weight: 600; }
+.student-meta { font-size: 11px; color: #64748b; margin-top: 2px; }
+.eng-tag { display: inline-block; font-size: 10px; padding: 1px 6px; background: #fef3c7; color: #92400e; border-radius: 8px; margin-left: 4px; }
+.progress-bar { width: 100%; height: 8px; background: #e2e8f0; border-radius: 4px; overflow: hidden; margin-top: 6px; }
+.progress-fill { height: 100%; background: #1d4ed8; border-radius: 4px; transition: width 0.3s; }
+.progress-row { background: #fff; border-radius: 10px; padding: 12px; margin-bottom: 8px; }
+.progress-book { font-size: 12px; color: #64748b; }
+.progress-pct { font-size: 11px; color: #1d4ed8; float: right; font-weight: 600; }
+.timetable { background: #fff; border-radius: 10px; padding: 12px; margin-bottom: 8px; }
+.timetable-day { font-weight: 700; font-size: 14px; color: #1d4ed8; margin-bottom: 8px; }
+.timetable-row { display: flex; padding: 6px 0; border-top: 1px solid #f1f5f9; font-size: 13px; }
+.timetable-row:first-child { border-top: none; }
+.timetable-time { width: 80px; color: #64748b; font-size: 11px; }
+.timetable-students { flex: 1; line-height: 1.5; }
+.timetable-room { display: inline-block; font-size: 10px; padding: 1px 5px; background: #e0e7ff; color: #3730a3; border-radius: 6px; margin-right: 4px; }
+.empty { text-align: center; color: #94a3b8; padding: 40px 20px; font-size: 13px; }
+.loading { text-align: center; padding: 40px; color: #64748b; }
+.btn { padding: 8px 14px; background: #1d4ed8; color: #fff; border: none; border-radius: 6px; font-size: 13px; cursor: pointer; }
+.btn:active { opacity: 0.8; }
+.input { padding: 6px 8px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 13px; }
+
+@media (max-width: 480px) {
+  .summary { grid-template-columns: repeat(3, 1fr); }
+  .summary-card .num { font-size: 18px; }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <h1>🧮 엘로이 수학</h1>
+  <span class="teacher-badge" id="teacherBadge">전체 보기</span>
+</header>
+
+<nav>
+  <button class="active" data-tab="home">🏠 홈</button>
+  <button data-tab="class">수업</button>
+  <button data-tab="progress">📊 진도</button>
+  <button data-tab="timetable">📅 시간표</button>
+</nav>
+
+<main>
+  <div id="home" class="tab active">
+    <div class="summary">
+      <div class="summary-card"><div class="num" id="totalCount">-</div><div class="lbl">수강생</div></div>
+      <div class="summary-card"><div class="num" id="elemCount">-</div><div class="lbl">초등</div></div>
+      <div class="summary-card"><div class="num" id="middleCount">-</div><div class="lbl">중등</div></div>
+    </div>
+    <div class="section-title">반별 학생</div>
+    <div id="homeList" class="loading">불러오는 중…</div>
+  </div>
+
+  <div id="class" class="tab">
+    <div class="section-title">오늘 수업</div>
+    <div id="classList" class="loading">불러오는 중…</div>
+  </div>
+
+  <div id="progress" class="tab">
+    <div class="section-title">학생 진도</div>
+    <div id="progressList" class="loading">불러오는 중…</div>
+  </div>
+
+  <div id="timetable" class="tab">
+    <div class="section-title">주간 시간표</div>
+    <div id="timetableList" class="loading">불러오는 중…</div>
+  </div>
+</main>
+
+<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
+<script>
+const firebaseConfig = {
+  apiKey: "AIzaSyD6NViX8FsD1k02e_emkLsanfbM6yTIXpw",
+  authDomain: "elroy-class-guide.firebaseapp.com",
+  databaseURL: "https://elroy-class-guide-default-rtdb.firebaseio.com",
+  projectId: "elroy-class-guide",
+  storageBucket: "elroy-class-guide.firebasestorage.app",
+  messagingSenderId: "817466043400",
+  appId: "1:817466043400:web:50ceea5093e70108dc75bd"
+};
+firebase.initializeApp(firebaseConfig);
+const db = firebase.database();
+
+// ?teacher= 파라미터 처리
+const urlParams = new URLSearchParams(location.search);
+const currentTeacher = urlParams.get('teacher') || 'admin';
+const TEACHER_NAMES = {
+  admin: '전체 보기',
+  imyoung: '임영쌤',
+  huijung: '희정쌤',
+  hwijae: '휘재쌤',
+  wonjang: '원장쌤'
+};
+document.getElementById('teacherBadge').textContent = TEACHER_NAMES[currentTeacher] || currentTeacher;
+
+// 탭 전환
+document.querySelectorAll('nav button').forEach(b => {
+  b.addEventListener('click', () => {
+    document.querySelectorAll('nav button').forEach(x => x.classList.remove('active'));
+    document.querySelectorAll('.tab').forEach(x => x.classList.remove('active'));
+    b.classList.add('active');
+    document.getElementById(b.dataset.tab).classList.add('active');
+  });
+});
+
+// 학생 데이터 필터
+function filterByTeacher(students) {
+  if (currentTeacher === 'admin') return students;
+  return students.filter(s => (s.classes || []).some(c => c.teacher === currentTeacher));
+}
+
+// 학생 ID, 데이터
+let allStudents = [];
+
+// 데이터 로드
+db.ref('math_students').on('value', snap => {
+  const data = snap.val() || {};
+  allStudents = Object.entries(data).map(([id, s]) => ({ id, ...s }));
+  renderHome();
+  renderClass();
+  renderTimetable();
+});
+db.ref('math_progress').on('value', snap => {
+  window._progress = snap.val() || {};
+  renderProgress();
+});
+
+function renderHome() {
+  const filtered = filterByTeacher(allStudents);
+  document.getElementById('totalCount').textContent = filtered.length;
+  document.getElementById('elemCount').textContent = filtered.filter(s => s.kind === '초등').length;
+  document.getElementById('middleCount').textContent = filtered.filter(s => s.kind === '중등').length;
+
+  if (filtered.length === 0) {
+    document.getElementById('homeList').innerHTML = '<div class="empty">학생 데이터가 없습니다</div>';
+    return;
+  }
+  // 강사별 그룹핑
+  const byTeacher = {};
+  filtered.forEach(s => {
+    (s.classes || []).forEach(c => {
+      const key = `${c.teacher}_${c.day}_${c.time}`;
+      if (!byTeacher[key]) byTeacher[key] = { teacher: c.teacher, day: c.day, time: c.time, room: c.room, students: [] };
+      if (!byTeacher[key].students.find(x => x.id === s.id)) byTeacher[key].students.push(s);
+    });
+  });
+  const groups = Object.values(byTeacher).sort((a,b) => {
+    const dayOrder = '월화수목금';
+    const da = dayOrder.indexOf(a.day), dbi = dayOrder.indexOf(b.day);
+    if (da !== dbi) return da - dbi;
+    return (a.time || '').localeCompare(b.time || '');
+  });
+  let html = '';
+  groups.forEach(g => {
+    html += `<div class="class-divider">${g.day} ${g.time} · <span class="timetable-room">${g.room}</span> ${TEACHER_NAMES[g.teacher] || g.teacher}</div>`;
+    g.students.forEach(s => {
+      html += `<div class="student-card">
+        <div>
+          <div class="student-name">${s.name}${s.hasEnglish ? '<span class="eng-tag">영어</span>' : ''}</div>
+          <div class="student-meta">${s.grade || ''} · ${s.payer || ''}</div>
+        </div>
+      </div>`;
+    });
+  });
+  document.getElementById('homeList').innerHTML = html || '<div class="empty">표시할 수업이 없습니다</div>';
+}
+
+function renderClass() {
+  const filtered = filterByTeacher(allStudents);
+  if (filtered.length === 0) {
+    document.getElementById('classList').innerHTML = '<div class="empty">수업 데이터가 없습니다</div>';
+    return;
+  }
+  // Phase 1 MVP: 학생 카드 표시 (수업 기록 입력은 Phase 2)
+  let html = '';
+  filtered.sort((a,b) => (a.name || '').localeCompare(b.name || '')).forEach(s => {
+    const books = Object.values(s.books || {}).join(' / ') || '교재 미설정';
+    html += `<div class="student-card">
+      <div>
+        <div class="student-name">${s.name}</div>
+        <div class="student-meta">${books}</div>
+      </div>
+    </div>`;
+  });
+  document.getElementById('classList').innerHTML = html;
+}
+
+function renderProgress() {
+  const filtered = filterByTeacher(allStudents);
+  const progress = window._progress || {};
+  if (filtered.length === 0) {
+    document.getElementById('progressList').innerHTML = '<div class="empty">진도 데이터가 없습니다</div>';
+    return;
+  }
+  let html = '';
+  filtered.sort((a,b) => (a.name || '').localeCompare(b.name || '')).forEach(s => {
+    const books = s.books || {};
+    const stuProg = progress[s.id] || {};
+    html += `<div class="progress-row"><div class="student-name">${s.name} <span class="student-meta">${s.grade || ''}</span></div>`;
+    Object.entries(books).forEach(([book, bookName]) => {
+      const p = stuProg[book] || {};
+      const cur = p.current || 0, tot = p.total || 0;
+      const pct = tot > 0 ? Math.round(cur / tot * 100) : 0;
+      html += `<div style="margin-top:8px;">
+        <span class="progress-book">${book}: ${bookName}</span>
+        <span class="progress-pct">${cur}/${tot} (${pct}%)</span>
+        <div class="progress-bar"><div class="progress-fill" style="width:${pct}%"></div></div>
+      </div>`;
+    });
+    html += `</div>`;
+  });
+  document.getElementById('progressList').innerHTML = html;
+}
+
+function renderTimetable() {
+  const filtered = filterByTeacher(allStudents);
+  if (filtered.length === 0) {
+    document.getElementById('timetableList').innerHTML = '<div class="empty">시간표 데이터가 없습니다</div>';
+    return;
+  }
+  const days = ['월','화','수','목','금'];
+  const grid = {};
+  days.forEach(d => grid[d] = {});
+  filtered.forEach(s => {
+    (s.classes || []).forEach(c => {
+      const key = c.time;
+      if (!grid[c.day]) return;
+      if (!grid[c.day][key]) grid[c.day][key] = { time: c.time, slots: {} };
+      const roomKey = `${c.room}|${c.teacher}`;
+      if (!grid[c.day][key].slots[roomKey]) grid[c.day][key].slots[roomKey] = { room: c.room, teacher: c.teacher, students: [] };
+      grid[c.day][key].slots[roomKey].students.push(s.name);
+    });
+  });
+  let html = '';
+  days.forEach(d => {
+    const slots = Object.values(grid[d]).sort((a,b) => (a.time || '').localeCompare(b.time || ''));
+    if (slots.length === 0) return;
+    html += `<div class="timetable"><div class="timetable-day">${d}요일</div>`;
+    slots.forEach(slot => {
+      html += `<div class="timetable-row"><div class="timetable-time">${slot.time}</div><div class="timetable-students">`;
+      Object.values(slot.slots).forEach(rt => {
+        html += `<div><span class="timetable-room">${rt.room.replace('강의실','강')}</span><b>${TEACHER_NAMES[rt.teacher] || rt.teacher}</b>: ${rt.students.join(', ')}</div>`;
+      });
+      html += `</div></div>`;
+    });
+    html += `</div>`;
+  });
+  document.getElementById('timetableList').innerHTML = html || '<div class="empty">표시할 시간표가 없습니다</div>';
+}
+</script>
+
+</body>
+</html>
