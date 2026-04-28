@@ -7,137 +7,268 @@
 <title>엘로이 수학</title>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧮</text></svg>">
 <style>
-:root {
-  --bg: #f1f5f9;
-  --surface: #ffffff;
-  --surface-2: #f8fafc;
-  --border: #e2e8f0;
-  --text: #0f172a;
-  --text-muted: #64748b;
-  --text-subtle: #94a3b8;
-  --primary: #1d4ed8;
-  --primary-light: #dbeafe;
-  --imyoung: #2563eb; --imyoung-bg: #dbeafe;
-  --huijung: #db2777; --huijung-bg: #fce7f3;
-  --hwijae: #059669; --hwijae-bg: #d1fae5;
-  --wonjang: #7c3aed; --wonjang-bg: #ede9fe;
-  --special: #d97706; --special-bg: #fef3c7;
-  --shadow-sm: 0 1px 2px rgba(15,23,42,0.04);
-  --shadow-md: 0 4px 12px rgba(15,23,42,0.06);
-  --radius: 12px;
+:root{
+  --bg:#f1f5f9;--surface:#fff;--surface-2:#f8fafc;--border:#e2e8f0;
+  --text:#0f172a;--text-muted:#64748b;--text-subtle:#94a3b8;
+  --primary:#1d4ed8;--primary-light:#dbeafe;
+  --imyoung:#2563eb;--imyoung-bg:#dbeafe;
+  --huijung:#db2777;--huijung-bg:#fce7f3;
+  --hwijae:#059669;--hwijae-bg:#d1fae5;
+  --wonjang:#7c3aed;--wonjang-bg:#ede9fe;
+  --special:#d97706;--special-bg:#fef3c7;
+  --success:#10b981;--success-bg:#d1fae5;
+  --danger:#ef4444;--danger-bg:#fee2e2;
+  --warning:#f59e0b;--warning-bg:#fef3c7;
+  --shadow-sm:0 1px 2px rgba(15,23,42,.04);
+  --shadow-md:0 4px 12px rgba(15,23,42,.08);
+  --shadow-lg:0 10px 30px rgba(15,23,42,.15);
+  --radius:12px;
 }
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
 html,body{height:100%}
 body{font-family:-apple-system,BlinkMacSystemFont,'Apple SD Gothic Neo','Pretendard',sans-serif;background:var(--bg);color:var(--text);font-size:14px;line-height:1.5;padding-bottom:90px;-webkit-font-smoothing:antialiased}
-header{background:linear-gradient(135deg,#1d4ed8,#2563eb);color:#fff;padding:18px 18px 14px;position:sticky;top:0;z-index:100;box-shadow:var(--shadow-md)}
-.header-row{display:flex;justify-content:space-between;align-items:center}
-h1{font-size:17px;font-weight:700;display:flex;align-items:center;gap:6px}
-h1 .logo{font-size:22px}
-.teacher-badge{font-size:12px;padding:5px 12px;background:rgba(255,255,255,0.2);color:#fff;border-radius:14px;font-weight:600;border:1px solid rgba(255,255,255,0.3)}
-.search-box{margin-top:12px;background:rgba(255,255,255,0.95);border-radius:10px;padding:8px 12px;display:flex;align-items:center;gap:8px}
-.search-box input{border:none;outline:none;flex:1;background:transparent;font-size:14px;color:var(--text)}
-.search-box .icon{color:var(--text-muted);font-size:14px}
-.search-clear{background:none;border:none;color:var(--text-muted);cursor:pointer;font-size:14px;padding:0 4px}
-nav{display:flex;background:var(--surface);border-top:1px solid var(--border);position:fixed;bottom:0;left:0;right:0;z-index:99;box-shadow:0 -2px 8px rgba(15,23,42,0.05)}
-nav button{flex:1;padding:12px 6px 10px;background:none;border:none;font-size:11px;cursor:pointer;color:var(--text-muted);font-weight:500;display:flex;flex-direction:column;align-items:center;gap:3px;transition:color 0.15s}
-nav button .nav-icon{font-size:20px;line-height:1}
+button{font-family:inherit}
+input,textarea,select{font-family:inherit}
+
+/* Header */
+header{background:linear-gradient(135deg,#1d4ed8,#2563eb);color:#fff;padding:16px 16px 12px;position:sticky;top:0;z-index:100;box-shadow:var(--shadow-md)}
+.header-row{display:flex;justify-content:space-between;align-items:center;gap:8px}
+h1{font-size:16px;font-weight:700;display:flex;align-items:center;gap:6px}
+h1 .logo{font-size:20px}
+.header-actions{display:flex;align-items:center;gap:6px}
+.date-display{font-size:11px;padding:4px 9px;background:rgba(255,255,255,.15);border-radius:10px;font-weight:600}
+.teacher-badge{font-size:11px;padding:4px 10px;background:rgba(255,255,255,.2);color:#fff;border-radius:12px;font-weight:600;border:1px solid rgba(255,255,255,.3)}
+.search-box{margin-top:10px;background:rgba(255,255,255,.95);border-radius:10px;padding:7px 10px;display:flex;align-items:center;gap:6px}
+.search-box input{border:none;outline:none;flex:1;background:transparent;font-size:13px;color:var(--text)}
+.search-box .icon{color:var(--text-muted);font-size:13px}
+.search-clear{background:none;border:none;color:var(--text-muted);cursor:pointer;font-size:13px;padding:0 4px}
+
+/* Nav */
+nav{display:flex;background:var(--surface);border-top:1px solid var(--border);position:fixed;bottom:0;left:0;right:0;z-index:99;box-shadow:0 -2px 8px rgba(15,23,42,.05);overflow-x:auto;scrollbar-width:none}
+nav::-webkit-scrollbar{display:none}
+nav button{flex:1;min-width:60px;padding:9px 4px 7px;background:none;border:none;font-size:10px;cursor:pointer;color:var(--text-muted);font-weight:500;display:flex;flex-direction:column;align-items:center;gap:2px;transition:color .15s}
+nav button .nav-icon{font-size:18px;line-height:1}
 nav button.active{color:var(--primary);font-weight:700}
-main{padding:16px 14px 20px;max-width:760px;margin:0 auto}
-.tab{display:none;animation:fadeIn 0.2s}
+
+/* Main */
+main{padding:14px 12px 20px;max-width:760px;margin:0 auto}
+.tab{display:none;animation:fadeIn .2s}
 .tab.active{display:block}
 @keyframes fadeIn{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
-.section-title{font-size:12px;font-weight:700;color:var(--text-muted);margin:18px 4px 8px;text-transform:uppercase;letter-spacing:0.5px;display:flex;justify-content:space-between;align-items:center}
-.section-title:first-child{margin-top:4px}
-.section-title .count{background:var(--surface);color:var(--text-muted);padding:2px 8px;border-radius:10px;font-size:11px;font-weight:600;text-transform:none}
-.summary{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
-.summary-card{background:var(--surface);padding:14px 8px;border-radius:var(--radius);text-align:center;box-shadow:var(--shadow-sm);border:1px solid var(--border)}
-.summary-card .num{font-size:22px;font-weight:800;color:var(--primary);line-height:1}
-.summary-card .lbl{font-size:10px;color:var(--text-muted);margin-top:4px;font-weight:600}
-.slot{background:var(--surface);border-radius:var(--radius);margin-bottom:10px;overflow:hidden;box-shadow:var(--shadow-sm);border:1px solid var(--border)}
-.slot-header{display:flex;justify-content:space-between;align-items:center;padding:11px 14px;border-left:4px solid var(--primary);background:var(--surface-2)}
+
+.section-title{font-size:11px;font-weight:700;color:var(--text-muted);margin:14px 4px 6px;text-transform:uppercase;letter-spacing:.5px;display:flex;justify-content:space-between;align-items:center;gap:6px}
+.section-title:first-child{margin-top:2px}
+.section-title .count{background:var(--surface);color:var(--text-muted);padding:2px 8px;border-radius:10px;font-size:10px;font-weight:600;text-transform:none;border:1px solid var(--border)}
+
+.summary{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
+.summary-card{background:var(--surface);padding:12px 6px;border-radius:var(--radius);text-align:center;box-shadow:var(--shadow-sm);border:1px solid var(--border)}
+.summary-card .num{font-size:20px;font-weight:800;color:var(--primary);line-height:1}
+.summary-card .lbl{font-size:9px;color:var(--text-muted);margin-top:3px;font-weight:600}
+
+/* Today summary */
+.today-summary{background:linear-gradient(135deg,#1d4ed8,#2563eb);color:#fff;border-radius:var(--radius);padding:14px;margin-bottom:14px;box-shadow:var(--shadow-md)}
+.today-summary .label{font-size:11px;opacity:.9;font-weight:600;letter-spacing:.5px;text-transform:uppercase}
+.today-summary .stats{display:flex;justify-content:space-between;margin-top:6px;align-items:center}
+.today-summary .stats .num{font-size:24px;font-weight:800;line-height:1}
+.today-summary .stats .desc{font-size:12px;opacity:.85;margin-top:2px}
+.today-summary .stats .right{text-align:right;font-size:11px;line-height:1.4;opacity:.9}
+
+/* Slot card */
+.slot{background:var(--surface);border-radius:var(--radius);margin-bottom:8px;overflow:hidden;box-shadow:var(--shadow-sm);border:1px solid var(--border)}
+.slot-header{display:flex;justify-content:space-between;align-items:center;padding:9px 12px;border-left:4px solid var(--primary);background:var(--surface-2);gap:6px;flex-wrap:wrap}
 .slot-header.t-imyoung{border-left-color:var(--imyoung)}
 .slot-header.t-huijung{border-left-color:var(--huijung)}
 .slot-header.t-hwijae{border-left-color:var(--hwijae)}
 .slot-header.t-wonjang{border-left-color:var(--wonjang)}
 .slot-header.t-special{border-left-color:var(--special)}
-.slot-meta{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
-.slot-day{font-weight:700;font-size:13px;color:var(--text)}
-.slot-time{font-size:12px;color:var(--text-muted);font-weight:500}
-.slot-room{font-size:10px;padding:2px 7px;background:var(--primary-light);color:var(--primary);border-radius:8px;font-weight:600}
+.slot-meta{display:flex;align-items:center;gap:7px;flex-wrap:wrap}
+.slot-day{font-weight:700;font-size:12px;color:var(--text)}
+.slot-time{font-size:11px;color:var(--text-muted);font-weight:500}
+.slot-room{font-size:9px;padding:2px 6px;background:var(--primary-light);color:var(--primary);border-radius:7px;font-weight:600}
 .t-imyoung .slot-room{background:var(--imyoung-bg);color:var(--imyoung)}
 .t-huijung .slot-room{background:var(--huijung-bg);color:var(--huijung)}
 .t-hwijae .slot-room{background:var(--hwijae-bg);color:var(--hwijae)}
 .t-wonjang .slot-room{background:var(--wonjang-bg);color:var(--wonjang)}
 .t-special .slot-room{background:var(--special-bg);color:var(--special)}
-.slot-teacher{font-size:12px;color:var(--text-muted);font-weight:500}
-.slot-students{display:flex;flex-wrap:wrap;gap:6px;padding:10px 14px 12px}
-.chip{padding:5px 10px;background:var(--surface-2);border:1px solid var(--border);border-radius:14px;font-size:12px;color:var(--text);font-weight:500;display:inline-flex;align-items:center;gap:4px}
+.slot-teacher{font-size:11px;color:var(--text-muted);font-weight:500}
+.slot-students{display:flex;flex-wrap:wrap;gap:5px;padding:8px 12px 10px}
+.chip{padding:4px 9px;background:var(--surface-2);border:1px solid var(--border);border-radius:14px;font-size:11px;color:var(--text);font-weight:500;display:inline-flex;align-items:center;gap:3px}
 .chip.has-eng{background:linear-gradient(135deg,#fef3c7,#fde68a);border-color:#fcd34d}
-.chip.has-eng::after{content:'E';font-size:9px;background:#d97706;color:#fff;padding:1px 4px;border-radius:4px;font-weight:700;margin-left:2px}
-.chip-grade{font-size:9px;color:var(--text-subtle);font-weight:700;margin-right:1px}
-.student-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px}
-.student-card{background:var(--surface);border-radius:var(--radius);padding:12px;box-shadow:var(--shadow-sm);border:1px solid var(--border)}
-.student-card .name{font-size:15px;font-weight:700;color:var(--text);display:flex;align-items:center;gap:5px}
-.eng-tag{font-size:9px;padding:2px 5px;background:var(--special-bg);color:var(--special);border-radius:5px;font-weight:700;letter-spacing:0.5px}
-.student-card .meta{font-size:11px;color:var(--text-muted);margin-top:2px}
-.student-card .teachers{display:flex;gap:3px;flex-wrap:wrap;margin-top:8px}
-.teacher-pill{font-size:9px;padding:2px 6px;border-radius:6px;font-weight:700;background:var(--surface-2);color:var(--text-muted)}
-.teacher-pill.t-imyoung{background:var(--imyoung-bg);color:var(--imyoung)}
-.teacher-pill.t-huijung{background:var(--huijung-bg);color:var(--huijung)}
-.teacher-pill.t-hwijae{background:var(--hwijae-bg);color:var(--hwijae)}
-.teacher-pill.t-wonjang{background:var(--wonjang-bg);color:var(--wonjang)}
-.teacher-pill.t-special{background:var(--special-bg);color:var(--special)}
-.progress-row{background:var(--surface);border-radius:var(--radius);padding:14px;margin-bottom:10px;box-shadow:var(--shadow-sm);border:1px solid var(--border)}
-.progress-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
-.progress-head .name{font-size:15px;font-weight:700}
-.progress-head .grade{font-size:11px;color:var(--text-muted);margin-left:6px;font-weight:500}
-.progress-empty{font-size:11px;color:var(--text-subtle);font-style:italic}
-.progress-item{margin-top:10px}
-.progress-item:first-child{margin-top:0}
-.progress-item-head{display:flex;justify-content:space-between;font-size:12px;margin-bottom:5px}
+.chip.has-eng::after{content:'E';font-size:8px;background:#d97706;color:#fff;padding:1px 4px;border-radius:4px;font-weight:700;margin-left:1px}
+.chip-grade{font-size:8px;color:var(--text-subtle);font-weight:700;margin-right:1px}
+
+/* Student input card (수업 탭) */
+.stu-card{background:var(--surface);border-radius:var(--radius);margin-bottom:10px;box-shadow:var(--shadow-sm);border:1px solid var(--border);overflow:hidden}
+.stu-card.absent{opacity:.6;border-left:3px solid var(--danger)}
+.stu-card.present{border-left:3px solid var(--success)}
+.stu-card.late{border-left:3px solid var(--warning)}
+.stu-card.makeup{border-left:3px solid var(--primary)}
+.stu-card-head{padding:11px 13px;display:flex;justify-content:space-between;align-items:center;cursor:pointer;background:var(--surface);gap:8px;flex-wrap:wrap}
+.stu-card-head:hover{background:var(--surface-2)}
+.stu-name-row{display:flex;align-items:center;gap:5px;flex:1;min-width:0}
+.stu-name{font-size:14px;font-weight:700}
+.stu-meta{font-size:10px;color:var(--text-muted)}
+.stu-status{display:flex;align-items:center;gap:4px}
+.status-dot{width:8px;height:8px;border-radius:50%;display:inline-block;background:var(--text-subtle)}
+.status-dot.present{background:var(--success)}
+.status-dot.absent{background:var(--danger)}
+.status-dot.late{background:var(--warning)}
+.status-dot.makeup{background:var(--primary)}
+.expand-arrow{color:var(--text-subtle);font-size:13px;transition:transform .2s}
+.stu-card.open .expand-arrow{transform:rotate(180deg)}
+.stu-card-body{display:none;padding:0 13px 13px;border-top:1px solid var(--border);background:var(--surface-2)}
+.stu-card.open .stu-card-body{display:block}
+
+.field{margin-top:11px}
+.field:first-child{margin-top:0;padding-top:11px}
+.field-label{font-size:10px;font-weight:700;color:var(--text-muted);margin-bottom:5px;text-transform:uppercase;letter-spacing:.4px;display:flex;justify-content:space-between;align-items:center}
+.field-input{width:100%;padding:8px 10px;border:1px solid var(--border);border-radius:8px;font-size:13px;background:var(--surface);outline:none;transition:border-color .15s}
+.field-input:focus{border-color:var(--primary)}
+textarea.field-input{resize:vertical;min-height:50px;font-family:inherit}
+
+.toggle-row{display:flex;gap:5px;flex-wrap:wrap}
+.toggle-btn{flex:1;min-width:60px;padding:8px 4px;border:1px solid var(--border);background:var(--surface);border-radius:7px;font-size:11px;font-weight:600;color:var(--text-muted);cursor:pointer;transition:all .15s;text-align:center}
+.toggle-btn:hover{border-color:var(--text-muted)}
+.toggle-btn.active{color:#fff;border-color:transparent}
+.toggle-btn.active.present{background:var(--success)}
+.toggle-btn.active.absent{background:var(--danger)}
+.toggle-btn.active.late{background:var(--warning)}
+.toggle-btn.active.makeup{background:var(--primary)}
+.toggle-btn.active.pass{background:var(--success)}
+.toggle-btn.active.fail{background:var(--danger)}
+.toggle-btn.active.repass{background:#10b981}
+.toggle-btn.active.refail{background:#dc2626}
+.pct-row{display:flex;gap:4px;flex-wrap:wrap}
+.pct-btn{flex:1;min-width:50px;padding:7px 3px;border:1px solid var(--border);background:var(--surface);border-radius:6px;font-size:11px;font-weight:600;color:var(--text-muted);cursor:pointer;text-align:center}
+.pct-btn.active{background:var(--primary);color:#fff;border-color:var(--primary)}
+.stars-row{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.stars-item{display:flex;flex-direction:column;gap:3px}
+.stars-label{font-size:10px;color:var(--text-muted);font-weight:600}
+.stars-buttons{display:flex;gap:2px}
+.star-btn{flex:1;padding:5px 0;border:1px solid var(--border);background:var(--surface);border-radius:5px;font-size:10px;font-weight:600;color:var(--text-muted);cursor:pointer}
+.star-btn.active{background:#fbbf24;color:#92400e;border-color:#f59e0b}
+
+/* Input row */
+.row-2{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+
+/* Save indicator */
+.save-indicator{font-size:9px;color:var(--text-subtle);margin-left:auto;font-weight:500}
+.save-indicator.saved{color:var(--success)}
+
+/* Student list (수업탭에서 시간 슬롯별 학생) */
+.tab-class-time-header{font-size:13px;font-weight:700;color:var(--text);padding:10px 12px;background:var(--surface);border-radius:var(--radius);box-shadow:var(--shadow-sm);margin:14px 0 8px;border:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap}
+.tab-class-time-header.t-imyoung{border-left:4px solid var(--imyoung)}
+.tab-class-time-header.t-huijung{border-left:4px solid var(--huijung)}
+.tab-class-time-header.t-hwijae{border-left:4px solid var(--hwijae)}
+.tab-class-time-header.t-wonjang{border-left:4px solid var(--wonjang)}
+.tab-class-time-header.t-special{border-left:4px solid var(--special)}
+.tab-class-time-header .meta{display:flex;gap:7px;align-items:center;flex-wrap:wrap}
+
+/* Date selector */
+.date-bar{display:flex;align-items:center;gap:8px;padding:10px 12px;background:var(--surface);border-radius:var(--radius);box-shadow:var(--shadow-sm);border:1px solid var(--border);margin-bottom:10px}
+.date-bar input[type=date]{flex:1;padding:6px 8px;border:1px solid var(--border);border-radius:6px;font-size:13px;outline:none}
+.date-bar .day-label{font-size:11px;font-weight:700;color:var(--primary);background:var(--primary-light);padding:3px 8px;border-radius:7px}
+.date-bar button{padding:5px 10px;background:var(--surface-2);border:1px solid var(--border);border-radius:6px;font-size:12px;cursor:pointer;color:var(--text);font-weight:500}
+.date-bar button:hover{background:var(--border)}
+
+/* Filter chips */
+.filter-bar{display:flex;gap:5px;overflow-x:auto;padding:3px 0 6px;scrollbar-width:none}
+.filter-bar::-webkit-scrollbar{display:none}
+.filter-chip{padding:5px 11px;background:var(--surface);border:1px solid var(--border);border-radius:13px;font-size:11px;color:var(--text-muted);font-weight:600;cursor:pointer;white-space:nowrap}
+.filter-chip.active{background:var(--primary);color:#fff;border-color:var(--primary)}
+
+/* Student grid */
+.student-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:8px}
+
+/* Progress card */
+.progress-row{background:var(--surface);border-radius:var(--radius);padding:12px;margin-bottom:8px;box-shadow:var(--shadow-sm);border:1px solid var(--border)}
+.progress-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+.progress-head .name{font-size:14px;font-weight:700}
+.progress-head .grade{font-size:10px;color:var(--text-muted);margin-left:5px;font-weight:500}
+.progress-empty{font-size:11px;color:var(--text-subtle);font-style:italic;padding:6px 0}
+.progress-empty .add-btn{display:inline-block;padding:4px 10px;background:var(--primary-light);color:var(--primary);border-radius:6px;font-size:10px;font-weight:600;font-style:normal;margin-left:6px;cursor:pointer;border:none}
+.progress-item{margin-top:9px}
+.progress-item:first-of-type{margin-top:0}
+.progress-item-head{display:flex;justify-content:space-between;font-size:11px;margin-bottom:4px}
 .progress-book{color:var(--text-muted);font-weight:500}
-.progress-book b{color:var(--text);margin-right:4px}
+.progress-book b{color:var(--text);margin-right:3px}
 .progress-pct{color:var(--primary);font-weight:700}
 .progress-bar{width:100%;height:6px;background:var(--border);border-radius:3px;overflow:hidden}
-.progress-fill{height:100%;background:linear-gradient(90deg,#3b82f6,#1d4ed8);border-radius:3px;transition:width 0.3s}
-.timetable{background:var(--surface);border-radius:var(--radius);margin-bottom:12px;box-shadow:var(--shadow-sm);border:1px solid var(--border);overflow:hidden}
-.timetable-day{background:linear-gradient(135deg,var(--primary),#2563eb);color:#fff;font-weight:700;font-size:13px;padding:10px 14px}
-.timetable-row{display:flex;padding:10px 14px;border-top:1px solid var(--border);font-size:13px;align-items:flex-start}
+.progress-fill{height:100%;background:linear-gradient(90deg,#3b82f6,#1d4ed8);border-radius:3px;transition:width .3s}
+
+/* Timetable */
+.timetable{background:var(--surface);border-radius:var(--radius);margin-bottom:10px;box-shadow:var(--shadow-sm);border:1px solid var(--border);overflow:hidden}
+.timetable-day{background:linear-gradient(135deg,var(--primary),#2563eb);color:#fff;font-weight:700;font-size:12px;padding:9px 12px}
+.timetable-row{display:flex;padding:9px 12px;border-top:1px solid var(--border);font-size:12px;align-items:flex-start}
 .timetable-row:first-of-type{border-top:none}
-.timetable-time{width:78px;flex-shrink:0;color:var(--text-muted);font-size:11px;font-weight:600;padding-top:2px}
-.timetable-slots{flex:1;display:flex;flex-direction:column;gap:6px}
-.timetable-slot{display:flex;align-items:flex-start;gap:6px;flex-wrap:wrap;font-size:12px;line-height:1.5}
-.timetable-slot .room-pill{font-size:9px;padding:2px 6px;border-radius:5px;font-weight:700;flex-shrink:0;margin-top:2px}
+.timetable-time{width:72px;flex-shrink:0;color:var(--text-muted);font-size:10px;font-weight:600;padding-top:2px}
+.timetable-slots{flex:1;display:flex;flex-direction:column;gap:5px}
+.timetable-slot{display:flex;align-items:flex-start;gap:5px;flex-wrap:wrap;font-size:11px;line-height:1.5}
+.timetable-slot .room-pill{font-size:8px;padding:2px 5px;border-radius:4px;font-weight:700;flex-shrink:0;margin-top:2px}
 .timetable-slot.t-imyoung .room-pill{background:var(--imyoung-bg);color:var(--imyoung)}
 .timetable-slot.t-huijung .room-pill{background:var(--huijung-bg);color:var(--huijung)}
 .timetable-slot.t-hwijae .room-pill{background:var(--hwijae-bg);color:var(--hwijae)}
 .timetable-slot.t-wonjang .room-pill{background:var(--wonjang-bg);color:var(--wonjang)}
 .timetable-slot.t-special .room-pill{background:var(--special-bg);color:var(--special)}
-.timetable-slot .teacher-name{font-weight:700;font-size:11px;margin-right:2px}
+.timetable-slot .teacher-name{font-weight:700;font-size:10px;margin-right:1px}
 .timetable-slot.t-imyoung .teacher-name{color:var(--imyoung)}
 .timetable-slot.t-huijung .teacher-name{color:var(--huijung)}
 .timetable-slot.t-hwijae .teacher-name{color:var(--hwijae)}
 .timetable-slot.t-wonjang .teacher-name{color:var(--wonjang)}
 .timetable-slot.t-special .teacher-name{color:var(--special)}
-.timetable-slot .stu-list{font-size:12px;color:var(--text)}
-.empty{text-align:center;color:var(--text-subtle);padding:60px 20px;font-size:13px;background:var(--surface);border-radius:var(--radius);border:1px dashed var(--border)}
-.empty .empty-icon{font-size:36px;margin-bottom:10px;opacity:0.5}
+.timetable-slot .stu-list{font-size:11px;color:var(--text)}
+
+/* Empty / Loading */
+.empty{text-align:center;color:var(--text-subtle);padding:50px 18px;font-size:12px;background:var(--surface);border-radius:var(--radius);border:1px dashed var(--border)}
+.empty .empty-icon{font-size:32px;margin-bottom:8px;opacity:.5}
 .empty .empty-title{font-weight:600;color:var(--text-muted);margin-bottom:4px}
-.loading{text-align:center;padding:60px 20px;color:var(--text-muted)}
-.spinner{display:inline-block;width:24px;height:24px;border:3px solid var(--border);border-top-color:var(--primary);border-radius:50%;animation:spin 0.8s linear infinite;margin-bottom:8px}
+.loading{text-align:center;padding:50px 18px;color:var(--text-muted)}
+.spinner{display:inline-block;width:22px;height:22px;border:3px solid var(--border);border-top-color:var(--primary);border-radius:50%;animation:spin .8s linear infinite;margin-bottom:6px}
 @keyframes spin{to{transform:rotate(360deg)}}
-.filter-bar{display:flex;gap:6px;overflow-x:auto;padding:4px 0 8px;scrollbar-width:none}
-.filter-bar::-webkit-scrollbar{display:none}
-.filter-chip{padding:6px 12px;background:var(--surface);border:1px solid var(--border);border-radius:14px;font-size:12px;color:var(--text-muted);font-weight:600;cursor:pointer;white-space:nowrap}
-.filter-chip.active{background:var(--primary);color:#fff;border-color:var(--primary)}
+
+/* Settings/student management */
+.list-card{background:var(--surface);border-radius:var(--radius);padding:11px 13px;margin-bottom:7px;box-shadow:var(--shadow-sm);border:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap}
+.list-card .info{flex:1;min-width:0}
+.list-card .title{font-size:13px;font-weight:700;color:var(--text)}
+.list-card .meta{font-size:11px;color:var(--text-muted);margin-top:2px}
+.list-card .badge{font-size:9px;padding:2px 7px;border-radius:8px;font-weight:700}
+.list-card .badge.unresolved{background:var(--warning-bg);color:var(--warning)}
+.list-card .badge.resolved{background:var(--success-bg);color:var(--success)}
+.list-card .actions{display:flex;gap:5px}
+.list-card .actions button{padding:5px 9px;border:1px solid var(--border);background:var(--surface);border-radius:6px;font-size:11px;cursor:pointer;color:var(--text);font-weight:500}
+.list-card .actions button:hover{background:var(--surface-2)}
+.list-card .actions button.primary{background:var(--primary);color:#fff;border-color:var(--primary)}
+.list-card .actions button.danger{background:var(--danger);color:#fff;border-color:var(--danger)}
+
+/* Modal */
+.modal-overlay{position:fixed;inset:0;background:rgba(15,23,42,.5);display:none;align-items:center;justify-content:center;z-index:200;padding:14px}
+.modal-overlay.open{display:flex;animation:fadeIn .15s}
+.modal{background:var(--surface);border-radius:var(--radius);max-width:480px;width:100%;max-height:90vh;overflow-y:auto;box-shadow:var(--shadow-lg)}
+.modal-head{padding:14px 16px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center}
+.modal-title{font-size:15px;font-weight:700}
+.modal-close{background:none;border:none;font-size:18px;cursor:pointer;color:var(--text-muted)}
+.modal-body{padding:14px 16px}
+.modal-foot{padding:10px 16px;border-top:1px solid var(--border);display:flex;justify-content:flex-end;gap:6px}
+.btn{padding:8px 14px;border:1px solid var(--border);background:var(--surface);border-radius:7px;font-size:12px;font-weight:600;cursor:pointer;color:var(--text)}
+.btn.primary{background:var(--primary);color:#fff;border-color:var(--primary)}
+.btn.danger{background:var(--danger);color:#fff;border-color:var(--danger)}
+.btn:disabled{opacity:.5;cursor:not-allowed}
+
+/* Toast */
+.toast{position:fixed;bottom:90px;left:50%;transform:translateX(-50%);background:var(--text);color:#fff;padding:9px 16px;border-radius:8px;font-size:12px;font-weight:500;z-index:300;animation:toastIn .2s;pointer-events:none}
+.toast.error{background:var(--danger)}
+.toast.success{background:var(--success)}
+@keyframes toastIn{from{opacity:0;transform:translate(-50%,8px)}to{opacity:1;transform:translate(-50%,0)}}
+
 @media (min-width:720px){
   body{padding-bottom:0}
   nav{position:sticky;top:0;bottom:auto;box-shadow:var(--shadow-sm);border-top:none;border-bottom:1px solid var(--border)}
-  nav button{flex-direction:row;padding:14px 12px;font-size:13px;gap:6px;border-bottom:3px solid transparent;border-top:none}
-  nav button .nav-icon{font-size:16px}
+  nav button{flex-direction:row;padding:13px 11px;font-size:12px;gap:5px;border-bottom:3px solid transparent;border-top:none;min-width:auto}
+  nav button .nav-icon{font-size:15px}
   nav button.active{border-bottom-color:var(--primary)}
-  header{padding-bottom:16px;position:relative}
-  main{padding:24px}
+  header{padding-bottom:14px}
+  main{padding:20px}
+  .toast{bottom:24px}
 }
 @media (min-width:1024px){
   .student-grid{grid-template-columns:repeat(auto-fill,minmax(180px,1fr))}
@@ -149,7 +280,10 @@ main{padding:16px 14px 20px;max-width:760px;margin:0 auto}
 <header>
   <div class="header-row">
     <h1><span class="logo">🧮</span> 엘로이 수학</h1>
-    <span class="teacher-badge" id="teacherBadge">전체 보기</span>
+    <div class="header-actions">
+      <span class="date-display" id="dateDisplay">-</span>
+      <span class="teacher-badge" id="teacherBadge">전체</span>
+    </div>
   </div>
   <div class="search-box">
     <span class="icon">🔍</span>
@@ -161,31 +295,65 @@ main{padding:16px 14px 20px;max-width:760px;margin:0 auto}
 <nav>
   <button class="active" data-tab="home"><span class="nav-icon">🏠</span><span>홈</span></button>
   <button data-tab="class"><span class="nav-icon">👥</span><span>수업</span></button>
+  <button data-tab="manage"><span class="nav-icon">⚠️</span><span>관리</span></button>
+  <button data-tab="history"><span class="nav-icon">📅</span><span>기록</span></button>
   <button data-tab="progress"><span class="nav-icon">📊</span><span>진도</span></button>
-  <button data-tab="timetable"><span class="nav-icon">📅</span><span>시간표</span></button>
+  <button data-tab="timetable"><span class="nav-icon">🗓</span><span>시간표</span></button>
+  <button data-tab="settings"><span class="nav-icon">⚙️</span><span>설정</span></button>
 </nav>
 
 <main>
   <div id="home" class="tab active">
-    <div class="section-title">요약 <span class="count" id="lastUpdate">-</span></div>
+    <div class="today-summary">
+      <div class="label">오늘 (<span id="todayDayLabel">-</span>요일)</div>
+      <div class="stats">
+        <div>
+          <div class="num" id="todayClassCount">-</div>
+          <div class="desc">오늘 수업</div>
+        </div>
+        <div class="right" id="todayBreakdown">-</div>
+      </div>
+    </div>
+
+    <div class="section-title">전체 요약 <span class="count" id="lastUpdate">-</span></div>
     <div class="summary">
       <div class="summary-card"><div class="num" id="totalCount">-</div><div class="lbl">수강생</div></div>
       <div class="summary-card"><div class="num" id="elemCount">-</div><div class="lbl">초등</div></div>
       <div class="summary-card"><div class="num" id="middleCount">-</div><div class="lbl">중등</div></div>
       <div class="summary-card"><div class="num" id="engCount">-</div><div class="lbl">영어 병행</div></div>
     </div>
+
     <div class="section-title">수업 시간표 <span class="count" id="slotCount">0개</span></div>
     <div id="homeList" class="loading"><div class="spinner"></div><div>불러오는 중…</div></div>
   </div>
 
   <div id="class" class="tab">
-    <div class="section-title">학생 목록 <span class="count" id="classStuCount">0명</span></div>
-    <div class="filter-bar" id="classFilters"></div>
+    <div class="date-bar">
+      <span class="day-label" id="classDateDayLabel">월</span>
+      <input type="date" id="classDate">
+      <button id="classDateToday">오늘</button>
+    </div>
     <div id="classList" class="loading"><div class="spinner"></div><div>불러오는 중…</div></div>
+  </div>
+
+  <div id="manage" class="tab">
+    <div class="section-title">학생 관리 <span class="count" id="manageCount">0건</span></div>
+    <div class="filter-bar" id="manageFilters"></div>
+    <div id="manageList" class="loading"><div class="spinner"></div><div>불러오는 중…</div></div>
+  </div>
+
+  <div id="history" class="tab">
+    <div class="date-bar">
+      <span class="day-label" id="historyDayLabel">-</span>
+      <input type="date" id="historyDate">
+      <button id="historyDateToday">오늘</button>
+    </div>
+    <div id="historyList" class="loading"><div class="spinner"></div><div>불러오는 중…</div></div>
   </div>
 
   <div id="progress" class="tab">
     <div class="section-title">학생 진도</div>
+    <div class="filter-bar" id="progressFilters"></div>
     <div id="progressList" class="loading"><div class="spinner"></div><div>불러오는 중…</div></div>
   </div>
 
@@ -193,7 +361,21 @@ main{padding:16px 14px 20px;max-width:760px;margin:0 auto}
     <div class="section-title">주간 시간표</div>
     <div id="timetableList" class="loading"><div class="spinner"></div><div>불러오는 중…</div></div>
   </div>
+
+  <div id="settings" class="tab">
+    <div class="section-title">학생 관리 <span class="count" id="settingsStuCount">0명</span></div>
+    <div style="display:flex;gap:6px;margin-bottom:8px">
+      <button class="btn primary" onclick="openAddStudentModal()">+ 학생 추가</button>
+      <button class="btn" onclick="openBookEditModal()">📚 교재 일괄 등록</button>
+    </div>
+    <div class="filter-bar" id="settingsFilters"></div>
+    <div id="settingsList" class="loading"><div class="spinner"></div><div>불러오는 중…</div></div>
+  </div>
 </main>
+
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal" id="modalContent"></div>
+</div>
 
 <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
@@ -203,15 +385,41 @@ firebase.initializeApp(firebaseConfig);
 const db=firebase.database();
 const urlParams=new URLSearchParams(location.search);
 const currentTeacher=urlParams.get('teacher')||'admin';
-const TEACHER_NAMES={admin:'전체 보기',imyoung:'임영쌤',huijung:'희정쌤',hwijae:'휘재쌤',wonjang:'원장쌤'};
+const TEACHER_NAMES={admin:'전체',imyoung:'임영쌤',huijung:'희정쌤',hwijae:'휘재쌤',wonjang:'원장쌤'};
 const TEACHER_CLASS=(t)=>!t?'t-special':'t-'+t;
+const DAY_NAMES=['일','월','화','수','목','금','토'];
+
 document.getElementById('teacherBadge').textContent=TEACHER_NAMES[currentTeacher]||currentTeacher;
 
 let allStudents=[];
 let progressData={};
+let classGuideData={};  // {date: {sid: data}}
+let stuMgmtData={};
+let booksData={};       // 교재 마스터
 let searchTerm='';
 let activeFilter='all';
+let activeManageFilter='unresolved';
+let activeProgressFilter='all';
+let activeSettingsFilter='all';
+let currentClassDate=todayStr();
+let currentHistoryDate=todayStr();
 
+function todayStr(){
+  const d=new Date();
+  return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
+}
+function dayOfDate(s){
+  const d=new Date(s+'T00:00:00');
+  return DAY_NAMES[d.getDay()];
+}
+function setDateDisplay(){
+  const t=todayStr();
+  const day=dayOfDate(t);
+  document.getElementById('dateDisplay').textContent=t.slice(5)+' '+day;
+  document.getElementById('todayDayLabel').textContent=day;
+}
+
+// Tab switching
 document.querySelectorAll('nav button').forEach(b=>{
   b.addEventListener('click',()=>{
     document.querySelectorAll('nav button').forEach(x=>x.classList.remove('active'));
@@ -222,6 +430,7 @@ document.querySelectorAll('nav button').forEach(b=>{
   });
 });
 
+// Search
 const searchInput=document.getElementById('searchInput');
 const searchClear=document.getElementById('searchClear');
 searchInput.addEventListener('input',e=>{
@@ -230,12 +439,31 @@ searchInput.addEventListener('input',e=>{
   renderAll();
 });
 searchClear.addEventListener('click',()=>{
-  searchInput.value='';
-  searchTerm='';
-  searchClear.style.display='none';
-  renderAll();
+  searchInput.value='';searchTerm='';
+  searchClear.style.display='none';renderAll();
 });
 
+// Date bars
+function setupDateBar(inputId,labelId,todayBtnId,onChange){
+  const inp=document.getElementById(inputId);
+  const lbl=document.getElementById(labelId);
+  const btn=document.getElementById(todayBtnId);
+  inp.value=todayStr();
+  lbl.textContent=dayOfDate(inp.value);
+  inp.addEventListener('change',()=>{
+    lbl.textContent=dayOfDate(inp.value);
+    onChange(inp.value);
+  });
+  btn.addEventListener('click',()=>{
+    inp.value=todayStr();
+    lbl.textContent=dayOfDate(inp.value);
+    onChange(inp.value);
+  });
+}
+setupDateBar('classDate','classDateDayLabel','classDateToday',(d)=>{currentClassDate=d;loadClassGuide(d);renderClass()});
+setupDateBar('historyDate','historyDayLabel','historyDateToday',(d)=>{currentHistoryDate=d;loadHistoryGuide(d);renderHistory()});
+
+// Filters
 function filterByTeacher(students){
   if(currentTeacher==='admin')return students;
   return students.filter(s=>(s.classes||[]).some(c=>c.teacher===currentTeacher));
@@ -245,34 +473,39 @@ function filterBySearch(students){
   return students.filter(s=>s.name&&s.name.includes(searchTerm));
 }
 
+// Data load
 db.ref('math_students').on('value',snap=>{
   const data=snap.val()||{};
   allStudents=Object.entries(data).map(([id,s])=>({id,...s}));
   document.getElementById('lastUpdate').textContent=new Date().toLocaleTimeString('ko-KR',{hour:'2-digit',minute:'2-digit'})+' 갱신';
   renderAll();
 });
-db.ref('math_progress').on('value',snap=>{
-  progressData=snap.val()||{};
-  renderProgress();
-});
+db.ref('math_progress').on('value',snap=>{progressData=snap.val()||{};renderProgress();});
+db.ref('math_stuMgmt').on('value',snap=>{stuMgmtData=snap.val()||{};renderManage();});
+db.ref('math_books').on('value',snap=>{booksData=snap.val()||{};});
 
-function renderAll(){renderHome();renderClass();renderProgress();renderTimetable();}
+function loadClassGuide(date){
+  db.ref('math_classGuide/'+date).on('value',snap=>{
+    classGuideData[date]=snap.val()||{};
+    renderClass();
+  });
+}
+function loadHistoryGuide(date){
+  db.ref('math_classGuide/'+date).once('value').then(snap=>{
+    classGuideData[date]=snap.val()||{};
+    renderHistory();
+  });
+}
+loadClassGuide(currentClassDate);
+
+function renderAll(){renderHome();renderClass();renderManage();renderHistory();renderProgress();renderTimetable();renderSettings();}
 
 const DAY_ORDER='월화수목금';
 const TIME_TO_NUM=(t)=>{const m=String(t||'').match(/(\d+):(\d+)/);return m?parseInt(m[1])*60+parseInt(m[2]):9999;};
-
-function gradeShort(g){
-  if(!g||g==='?')return'?';
-  if(g.startsWith('초')||g.startsWith('중')||g.startsWith('고'))return g;
-  if(/^\d+$/.test(g))return'초'+g;
-  return g;
-}
-function normGrade(s){
-  const g=s.grade||'?';
-  if(g==='?')return'?';
-  if(g.startsWith('중')||g.startsWith('고'))return g;
-  if(/^\d+$/.test(g))return'초'+g;
-  return g;
+function gradeShort(g){if(!g||g==='?')return'?';if(g.startsWith('초')||g.startsWith('중')||g.startsWith('고'))return g;if(/^\d+$/.test(g))return'초'+g;return g;}
+function normGrade(s){const g=s.grade||'?';if(g==='?')return'?';if(g.startsWith('중')||g.startsWith('고'))return g;if(/^\d+$/.test(g))return'초'+g;return g;}
+function teacherFilteredClasses(s){
+  return (s.classes||[]).filter(c=>currentTeacher==='admin'||c.teacher===currentTeacher);
 }
 
 function renderHome(){
@@ -283,6 +516,30 @@ function renderHome(){
   document.getElementById('middleCount').textContent=filtered.filter(s=>s.kind==='중등').length;
   document.getElementById('engCount').textContent=filtered.filter(s=>s.hasEnglish).length;
 
+  // 오늘 수업 통계
+  const today=todayStr();
+  const todayDay=dayOfDate(today);
+  const todayClasses=[];
+  const todayStudents=new Set();
+  searched.forEach(s=>{
+    teacherFilteredClasses(s).forEach(c=>{
+      if(c.day===todayDay){
+        todayClasses.push({...c,sid:s.id,name:s.name});
+        todayStudents.add(s.id);
+      }
+    });
+  });
+  document.getElementById('todayClassCount').textContent=todayClasses.length;
+  const cg=classGuideData[today]||{};
+  let pres=0,abs=0,unrec=0;
+  todayStudents.forEach(sid=>{
+    const r=cg[sid];
+    if(!r||!r.attendance)unrec++;
+    else if(r.attendance==='present'||r.attendance==='late'||r.attendance==='makeup')pres++;
+    else if(r.attendance==='absent')abs++;
+  });
+  document.getElementById('todayBreakdown').innerHTML='출석 '+pres+'<br>결석 '+abs+'<br>미기록 '+unrec;
+
   if(searched.length===0){
     document.getElementById('homeList').innerHTML=emptyState('학생 없음',searchTerm?'"'+searchTerm+'" 검색 결과가 없어요':'학생 데이터를 불러오는 중...');
     document.getElementById('slotCount').textContent='0개';
@@ -291,16 +548,14 @@ function renderHome(){
 
   const slots={};
   searched.forEach(s=>{
-    (s.classes||[]).forEach(c=>{
-      if(currentTeacher!=='admin'&&c.teacher!==currentTeacher)return;
+    teacherFilteredClasses(s).forEach(c=>{
       const key=c.day+'|'+c.time+'|'+c.room+'|'+c.teacher;
       if(!slots[key])slots[key]=Object.assign({},c,{students:[]});
       if(!slots[key].students.find(x=>x.id===s.id))slots[key].students.push(s);
     });
   });
   const groups=Object.values(slots).sort((a,b)=>{
-    const da=DAY_ORDER.indexOf(a.day);
-    const dbi=DAY_ORDER.indexOf(b.day);
+    const da=DAY_ORDER.indexOf(a.day),dbi=DAY_ORDER.indexOf(b.day);
     if(da!==dbi)return da-dbi;
     return TIME_TO_NUM(a.time)-TIME_TO_NUM(b.time);
   });
@@ -320,63 +575,350 @@ function renderHome(){
 }
 
 function renderClass(){
+  const date=currentClassDate;
+  const day=dayOfDate(date);
   const filtered=filterByTeacher(allStudents);
   const searched=filterBySearch(filtered);
-  const filters=['all','초2','초3','초4','초5','초6','중1','중2','중3','?'];
-  const fbar=document.getElementById('classFilters');
-  fbar.innerHTML=filters.map(f=>{
-    const cnt=f==='all'?searched.length:searched.filter(s=>normGrade(s)===f).length;
-    if(cnt===0&&f!=='all')return'';
-    const label=f==='all'?('전체 '+cnt):((f==='?'?'미설정':f)+' '+cnt);
-    return '<button class="filter-chip '+(activeFilter===f?'active':'')+'" data-f="'+f+'">'+label+'</button>';
-  }).join('');
-  fbar.querySelectorAll('.filter-chip').forEach(b=>{
-    b.addEventListener('click',()=>{activeFilter=b.dataset.f;renderClass();});
+  const cg=classGuideData[date]||{};
+
+  // 그날 수업이 있는 학생들만 (요일 매칭)
+  const todayStuMap={};  // sid -> [classes that day]
+  searched.forEach(s=>{
+    const cs=teacherFilteredClasses(s).filter(c=>c.day===day);
+    if(cs.length>0)todayStuMap[s.id]={s,classes:cs};
   });
 
-  let visible=searched;
-  if(activeFilter!=='all')visible=visible.filter(s=>normGrade(s)===activeFilter);
-  document.getElementById('classStuCount').textContent=visible.length+'명';
+  // 시간 슬롯별 그룹
+  const slots={};
+  Object.values(todayStuMap).forEach(({s,classes})=>{
+    classes.forEach(c=>{
+      const key=c.time+'|'+c.room+'|'+c.teacher;
+      if(!slots[key])slots[key]={time:c.time,room:c.room,teacher:c.teacher,students:[]};
+      if(!slots[key].students.find(x=>x.id===s.id))slots[key].students.push(s);
+    });
+  });
+  const sortedSlots=Object.values(slots).sort((a,b)=>TIME_TO_NUM(a.time)-TIME_TO_NUM(b.time));
 
-  if(visible.length===0){
-    document.getElementById('classList').innerHTML=emptyState('학생 없음',searchTerm?'"'+searchTerm+'" 검색 결과가 없어요':'필터에 해당하는 학생이 없습니다');
+  if(sortedSlots.length===0){
+    document.getElementById('classList').innerHTML=emptyState(day+'요일 수업 없음', '오늘은 수업이 없습니다');
     return;
   }
 
-  visible.sort((a,b)=>(a.name||'').localeCompare(b.name||''));
-  let html='<div class="student-grid">';
-  visible.forEach(s=>{
-    const teacherSet=[...new Set((s.classes||[]).map(c=>c.teacher).filter(Boolean))];
-    const teachersHtml=teacherSet.map(t=>'<span class="teacher-pill '+TEACHER_CLASS(t)+'">'+(TEACHER_NAMES[t]||t)+'</span>').join('');
-    const grade=gradeShort(s.grade);
-    html+='<div class="student-card"><div class="name">'+s.name+(s.hasEnglish?'<span class="eng-tag">영어</span>':'')+'</div><div class="meta">'+grade+' · '+(s.payer||'-')+'</div><div class="teachers">'+(teachersHtml||'<span class="teacher-pill">-</span>')+'</div></div>';
+  let html='';
+  sortedSlots.forEach(slot=>{
+    const tc=TEACHER_CLASS(slot.teacher);
+    const tname=TEACHER_NAMES[slot.teacher]||(slot.teacher?slot.teacher:'특강');
+    html+='<div class="tab-class-time-header '+tc+'"><div class="meta"><span>'+slot.time+'</span><span class="slot-room">'+slot.room.replace('강의실','강')+'</span><span>'+tname+'</span></div><span class="count" style="font-size:11px;color:var(--text-muted);font-weight:600">'+slot.students.length+'명</span></div>';
+    slot.students.sort((a,b)=>(a.name||'').localeCompare(b.name||'')).forEach(s=>{
+      html+=renderStuCard(s,date,cg[s.id]||{});
+    });
   });
-  html+='</div>';
   document.getElementById('classList').innerHTML=html;
+
+  // attach event handlers
+  document.querySelectorAll('#classList .stu-card').forEach(card=>{
+    card.querySelector('.stu-card-head').addEventListener('click',e=>{
+      if(e.target.closest('.stu-status-btn'))return;
+      card.classList.toggle('open');
+    });
+  });
+  document.querySelectorAll('#classList [data-action]').forEach(el=>{
+    el.addEventListener('click',handleStuAction);
+  });
+  document.querySelectorAll('#classList [data-input]').forEach(el=>{
+    el.addEventListener('change',handleStuInput);
+    el.addEventListener('blur',handleStuInput);
+  });
+}
+
+function renderStuCard(s,date,r){
+  const att=r.attendance||'';
+  const statusClass=att||'';
+  const dot=att?'<span class="status-dot '+att+'"></span>':'<span class="status-dot"></span>';
+  const grade=gradeShort(s.grade);
+  const homeworkChk=r.homeworkCheck;
+  const hwAssigned=r.homeworkAssigned||'';
+  const today=r.todayProgress||'';
+  const test=r.test||{};
+  const stars=r.stars||{};
+  const comment=r.comment||'';
+
+  return '<div class="stu-card '+statusClass+'" data-sid="'+s.id+'">'
+    +'<div class="stu-card-head">'
+    +'<div class="stu-name-row">'
+    +dot
+    +'<span class="stu-name">'+s.name+'</span>'
+    +'<span class="stu-meta">'+grade+(s.hasEnglish?' · 영어병행':'')+'</span>'
+    +'</div>'
+    +'<span class="expand-arrow">▼</span>'
+    +'</div>'
+    +'<div class="stu-card-body">'
+    +'<div class="field"><div class="field-label">출결</div><div class="toggle-row">'
+    +attBtn(s.id,'present','출석',att)
+    +attBtn(s.id,'absent','결석',att)
+    +attBtn(s.id,'late','지각',att)
+    +attBtn(s.id,'makeup','보강',att)
+    +'</div></div>'
+    +'<div class="field"><div class="field-label">전 수업 숙제 검사</div><div class="pct-row">'
+    +pctBtn(s.id,0,homeworkChk)
+    +pctBtn(s.id,25,homeworkChk)
+    +pctBtn(s.id,50,homeworkChk)
+    +pctBtn(s.id,75,homeworkChk)
+    +pctBtn(s.id,100,homeworkChk)
+    +'</div></div>'
+    +'<div class="field"><div class="field-label">오늘 진도</div><textarea class="field-input" data-input="todayProgress" data-sid="'+s.id+'" placeholder="예: 디딤돌 4-1 p.45-50">'+escapeHtml(today)+'</textarea></div>'
+    +'<div class="field"><div class="field-label">데일리 테스트</div>'
+    +'<div class="row-2">'
+    +'<input type="text" class="field-input" data-input="testScore" data-sid="'+s.id+'" placeholder="점수 (예: 8/10)" value="'+escapeHtml(test.score||'')+'">'
+    +'<div class="toggle-row">'
+    +testBtn(s.id,'pass','통과',test.result)
+    +testBtn(s.id,'fail','미통과',test.result)
+    +'</div>'
+    +'</div>'
+    +'</div>'
+    +'<div class="field"><div class="field-label">다음 숙제 배정</div><textarea class="field-input" data-input="homeworkAssigned" data-sid="'+s.id+'" placeholder="예: 쎈 4-1 p.38-42, 연산 4 5단원 끝까지">'+escapeHtml(hwAssigned)+'</textarea></div>'
+    +'<div class="field"><div class="field-label">별점 (집중도/숙제완성도/성실도/적극도)</div><div class="stars-row">'
+    +starBlock(s.id,'focus','집중도',stars.focus)
+    +starBlock(s.id,'homework','숙제완성도',stars.homework)
+    +starBlock(s.id,'sincerity','성실도',stars.sincerity)
+    +starBlock(s.id,'active','적극도',stars.active)
+    +'</div></div>'
+    +'<div class="field"><div class="field-label">코멘트</div><textarea class="field-input" data-input="comment" data-sid="'+s.id+'" placeholder="특이사항이나 다음 수업 시 참고할 것">'+escapeHtml(comment)+'</textarea></div>'
+    +'</div>'
+    +'</div>';
+}
+
+function attBtn(sid,val,label,cur){
+  const active=cur===val?' active '+val:'';
+  return '<button class="toggle-btn'+active+'" data-action="att" data-sid="'+sid+'" data-val="'+val+'">'+label+'</button>';
+}
+function pctBtn(sid,n,cur){
+  const active=cur===n?' active':'';
+  return '<button class="pct-btn'+active+'" data-action="pct" data-sid="'+sid+'" data-val="'+n+'">'+n+'%</button>';
+}
+function testBtn(sid,val,label,cur){
+  const active=cur===val?' active '+val:'';
+  return '<button class="toggle-btn'+active+'" data-action="test" data-sid="'+sid+'" data-val="'+val+'">'+label+'</button>';
+}
+function starBlock(sid,key,label,cur){
+  let html='<div class="stars-item"><div class="stars-label">'+label+'</div><div class="stars-buttons">';
+  for(let i=1;i<=5;i++){
+    const active=cur===i?' active':'';
+    html+='<button class="star-btn'+active+'" data-action="star" data-sid="'+sid+'" data-key="'+key+'" data-val="'+i+'">'+i+'</button>';
+  }
+  html+='</div></div>';
+  return html;
+}
+function escapeHtml(s){return String(s).replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));}
+
+function handleStuAction(e){
+  const btn=e.currentTarget;
+  const sid=btn.dataset.sid;
+  const action=btn.dataset.action;
+  const val=btn.dataset.val;
+  const date=currentClassDate;
+  const path='math_classGuide/'+date+'/'+sid;
+  let updates={};
+  let msg='';
+  if(action==='att'){
+    updates[path+'/attendance']=val;
+    msg='출결 저장됨';
+  }else if(action==='pct'){
+    updates[path+'/homeworkCheck']=parseInt(val);
+    msg='숙제 검사 저장';
+  }else if(action==='test'){
+    updates[path+'/test/result']=val;
+    msg='테스트 결과 저장';
+    // 미통과면 학생관리에 자동 등록
+    if(val==='fail'){
+      const stu=allStudents.find(s=>s.id===sid);
+      const recId='test_'+sid+'_'+date;
+      updates['math_stuMgmt/'+recId]={
+        type:'재시',
+        studentId:sid,
+        studentName:stu?stu.name:sid,
+        date,
+        memo:'데일리 테스트 미통과',
+        resolved:false,
+        createdAt:new Date().toISOString()
+      };
+    }
+  }else if(action==='star'){
+    const key=btn.dataset.key;
+    updates[path+'/stars/'+key]=parseInt(val);
+    msg='별점 저장';
+  }
+  firebase.database().ref().update(updates).then(()=>{
+    showToast(msg,'success');
+  }).catch(e=>showToast('저장 실패: '+e.message,'error'));
+}
+
+function handleStuInput(e){
+  const el=e.currentTarget;
+  const sid=el.dataset.sid;
+  const inputType=el.dataset.input;
+  const val=el.value;
+  const date=currentClassDate;
+  const path='math_classGuide/'+date+'/'+sid;
+  let updates={};
+  if(inputType==='todayProgress'){
+    updates[path+'/todayProgress']=val;
+  }else if(inputType==='homeworkAssigned'){
+    updates[path+'/homeworkAssigned']=val;
+  }else if(inputType==='comment'){
+    updates[path+'/comment']=val;
+  }else if(inputType==='testScore'){
+    updates[path+'/test/score']=val;
+  }
+  firebase.database().ref().update(updates).then(()=>{
+    el.style.borderColor='var(--success)';
+    setTimeout(()=>{el.style.borderColor='';},800);
+  }).catch(e=>showToast('저장 실패: '+e.message,'error'));
+}
+
+function renderManage(){
+  const items=Object.entries(stuMgmtData||{}).map(([id,r])=>({id,...r}));
+  const teacherFiltered=currentTeacher==='admin'?items:items.filter(it=>{
+    const stu=allStudents.find(s=>s.id===it.studentId);
+    return stu && (stu.classes||[]).some(c=>c.teacher===currentTeacher);
+  });
+  const filtered=filterMgmt(teacherFiltered,activeManageFilter);
+  document.getElementById('manageCount').textContent=filtered.length+'건';
+
+  // filter chips
+  const filters=[
+    ['unresolved','미해결',items.filter(i=>!i.resolved).length],
+    ['resolved','해결',items.filter(i=>i.resolved).length],
+    ['all','전체',items.length],
+    ['결석','결석',items.filter(i=>i.type==='결석'&&!i.resolved).length],
+    ['보강','보강 필요',items.filter(i=>i.type==='보강'&&!i.resolved).length],
+    ['재시','재시',items.filter(i=>i.type==='재시'&&!i.resolved).length]
+  ];
+  const fbar=document.getElementById('manageFilters');
+  fbar.innerHTML=filters.map(([k,l,c])=>'<button class="filter-chip '+(activeManageFilter===k?'active':'')+'" data-mf="'+k+'">'+l+' '+c+'</button>').join('');
+  fbar.querySelectorAll('.filter-chip').forEach(b=>{
+    b.addEventListener('click',()=>{activeManageFilter=b.dataset.mf;renderManage();});
+  });
+
+  if(filtered.length===0){
+    document.getElementById('manageList').innerHTML=emptyState('항목 없음', '미해결 사항이 없습니다');
+    return;
+  }
+  let html='';
+  filtered.sort((a,b)=>(b.date||'').localeCompare(a.date||'')).forEach(it=>{
+    const badge=it.resolved?'<span class="badge resolved">해결</span>':'<span class="badge unresolved">'+(it.type||'')+'</span>';
+    html+='<div class="list-card"><div class="info"><div class="title">'+it.studentName+' '+badge+'</div><div class="meta">'+(it.date||'')+' · '+(it.memo||'')+'</div></div><div class="actions">';
+    if(!it.resolved){
+      html+='<button class="primary" data-mgmt-resolve="'+it.id+'">완료</button>';
+    }
+    html+='<button class="danger" data-mgmt-delete="'+it.id+'">삭제</button>';
+    html+='</div></div>';
+  });
+  document.getElementById('manageList').innerHTML=html;
+
+  document.querySelectorAll('[data-mgmt-resolve]').forEach(b=>{
+    b.addEventListener('click',()=>{
+      firebase.database().ref('math_stuMgmt/'+b.dataset.mgmtResolve+'/resolved').set(true).then(()=>showToast('완료 처리','success'));
+    });
+  });
+  document.querySelectorAll('[data-mgmt-delete]').forEach(b=>{
+    b.addEventListener('click',()=>{
+      if(!confirm('정말 삭제할까요?'))return;
+      firebase.database().ref('math_stuMgmt/'+b.dataset.mgmtDelete).remove().then(()=>showToast('삭제','success'));
+    });
+  });
+}
+function filterMgmt(items,key){
+  if(key==='all')return items;
+  if(key==='unresolved')return items.filter(i=>!i.resolved);
+  if(key==='resolved')return items.filter(i=>i.resolved);
+  return items.filter(i=>i.type===key&&!i.resolved);
+}
+
+function renderHistory(){
+  const date=currentHistoryDate;
+  const day=dayOfDate(date);
+  const cg=classGuideData[date]||{};
+  const filtered=filterByTeacher(allStudents);
+  const searched=filterBySearch(filtered);
+
+  // 그날 수업이 있는 학생들 + 그날 데이터가 있는 학생들
+  const stus={};
+  searched.forEach(s=>{
+    const cs=teacherFilteredClasses(s).filter(c=>c.day===day);
+    if(cs.length>0)stus[s.id]=s;
+  });
+  Object.keys(cg).forEach(sid=>{
+    if(stus[sid])return;
+    const s=allStudents.find(x=>x.id===sid);
+    if(s&&(currentTeacher==='admin'||(s.classes||[]).some(c=>c.teacher===currentTeacher)))stus[sid]=s;
+  });
+
+  const list=Object.values(stus);
+  if(list.length===0){
+    document.getElementById('historyList').innerHTML=emptyState(date+' 기록 없음', '이 날짜에는 수업/기록이 없습니다');
+    return;
+  }
+  let html='<div class="section-title" style="margin-top:0">'+date+' '+day+'요일 <span class="count">'+list.length+'명</span></div>';
+  list.sort((a,b)=>(a.name||'').localeCompare(b.name||'')).forEach(s=>{
+    const r=cg[s.id]||{};
+    const att=r.attendance;
+    const cls=att||'';
+    const attLbl={present:'출석',absent:'결석',late:'지각',makeup:'보강'}[att]||'미기록';
+    const dot='<span class="status-dot '+(att||'')+'"></span>';
+    const test=r.test||{};
+    const detailParts=[];
+    if(r.todayProgress)detailParts.push('진도: '+r.todayProgress);
+    if(r.homeworkAssigned)detailParts.push('숙제: '+r.homeworkAssigned);
+    if(typeof r.homeworkCheck==='number')detailParts.push('숙제검사 '+r.homeworkCheck+'%');
+    if(test.result)detailParts.push('테스트 '+(test.result==='pass'?'통과':'미통과')+(test.score?' '+test.score:''));
+    if(r.comment)detailParts.push('💬 '+r.comment);
+    html+='<div class="stu-card '+cls+'"><div class="stu-card-head"><div class="stu-name-row">'+dot+'<span class="stu-name">'+s.name+'</span><span class="stu-meta">'+gradeShort(s.grade)+' · '+attLbl+'</span></div></div>';
+    if(detailParts.length>0){
+      html+='<div style="padding:0 13px 11px;font-size:12px;color:var(--text-muted);line-height:1.6">'+detailParts.map(escapeHtml).join('<br>')+'</div>';
+    }
+    html+='</div>';
+  });
+  document.getElementById('historyList').innerHTML=html;
 }
 
 function renderProgress(){
   const filtered=filterByTeacher(allStudents);
   const searched=filterBySearch(filtered);
-  if(searched.length===0){
+  // filter chips
+  const filters=['all','초2','초3','초4','초5','초6','중1','중2','중3','?'];
+  const fbar=document.getElementById('progressFilters');
+  fbar.innerHTML=filters.map(f=>{
+    const cnt=f==='all'?searched.length:searched.filter(s=>normGrade(s)===f).length;
+    if(cnt===0&&f!=='all')return'';
+    const label=f==='all'?('전체 '+cnt):((f==='?'?'미설정':f)+' '+cnt);
+    return '<button class="filter-chip '+(activeProgressFilter===f?'active':'')+'" data-pf="'+f+'">'+label+'</button>';
+  }).join('');
+  fbar.querySelectorAll('.filter-chip').forEach(b=>{
+    b.addEventListener('click',()=>{activeProgressFilter=b.dataset.pf;renderProgress();});
+  });
+  let visible=searched;
+  if(activeProgressFilter!=='all')visible=visible.filter(s=>normGrade(s)===activeProgressFilter);
+
+  if(visible.length===0){
     document.getElementById('progressList').innerHTML=emptyState('진도 데이터 없음','학생을 추가해주세요');
     return;
   }
-  searched.sort((a,b)=>(a.name||'').localeCompare(b.name||''));
+  visible.sort((a,b)=>(a.name||'').localeCompare(b.name||''));
   let html='';
-  searched.forEach(s=>{
+  visible.forEach(s=>{
     const books=s.books||{};
     const stuProg=progressData[s.id]||{};
     const bookKeys=Object.keys(books);
-    html+='<div class="progress-row"><div class="progress-head"><div><span class="name">'+s.name+'</span><span class="grade">'+gradeShort(s.grade)+'</span></div></div>';
+    html+='<div class="progress-row"><div class="progress-head"><div><span class="name">'+s.name+'</span><span class="grade">'+gradeShort(s.grade)+'</span></div><button class="btn" style="padding:4px 10px;font-size:10px" onclick="openBookEditModal(\''+s.id+'\')">교재 편집</button></div>';
     if(bookKeys.length===0){
-      html+='<div class="progress-empty">교재 미설정</div>';
+      html+='<div class="progress-empty">교재 미설정 <button class="add-btn" onclick="openBookEditModal(\''+s.id+'\')">+ 등록</button></div>';
     }else{
       bookKeys.forEach(book=>{
         const p=stuProg[book]||{};
         const cur=p.current||0,tot=p.total||0;
         const pct=tot>0?Math.round(cur/tot*100):0;
-        html+='<div class="progress-item"><div class="progress-item-head"><span class="progress-book"><b>'+book+'</b>'+books[book]+'</span><span class="progress-pct">'+cur+'/'+tot+' · '+pct+'%</span></div><div class="progress-bar"><div class="progress-fill" style="width:'+pct+'%"></div></div></div>';
+        html+='<div class="progress-item"><div class="progress-item-head"><span class="progress-book"><b>'+escapeHtml(book)+'</b>'+escapeHtml(books[book])+'</span><span class="progress-pct">'+cur+'/'+tot+' · '+pct+'%</span></div><div class="progress-bar"><div class="progress-fill" style="width:'+pct+'%"></div></div></div>';
       });
     }
     html+='</div>';
@@ -395,8 +937,7 @@ function renderTimetable(){
   const grid={};
   days.forEach(d=>grid[d]={});
   searched.forEach(s=>{
-    (s.classes||[]).forEach(c=>{
-      if(currentTeacher!=='admin'&&c.teacher!==currentTeacher)return;
+    teacherFilteredClasses(s).forEach(c=>{
       if(!grid[c.day])return;
       const t=c.time;
       if(!grid[c.day][t])grid[c.day][t]={};
@@ -425,10 +966,202 @@ function renderTimetable(){
   document.getElementById('timetableList').innerHTML=html||emptyState('시간표 없음','');
 }
 
+function renderSettings(){
+  const filtered=filterByTeacher(allStudents);
+  const searched=filterBySearch(filtered);
+  document.getElementById('settingsStuCount').textContent=searched.length+'명';
+  const filters=['all','초2','초3','초4','초5','초6','중1','중2','중3','?'];
+  const fbar=document.getElementById('settingsFilters');
+  fbar.innerHTML=filters.map(f=>{
+    const cnt=f==='all'?searched.length:searched.filter(s=>normGrade(s)===f).length;
+    if(cnt===0&&f!=='all')return'';
+    const label=f==='all'?('전체 '+cnt):((f==='?'?'미설정':f)+' '+cnt);
+    return '<button class="filter-chip '+(activeSettingsFilter===f?'active':'')+'" data-sf="'+f+'">'+label+'</button>';
+  }).join('');
+  fbar.querySelectorAll('.filter-chip').forEach(b=>{
+    b.addEventListener('click',()=>{activeSettingsFilter=b.dataset.sf;renderSettings();});
+  });
+  let visible=searched;
+  if(activeSettingsFilter!=='all')visible=visible.filter(s=>normGrade(s)===activeSettingsFilter);
+  if(visible.length===0){
+    document.getElementById('settingsList').innerHTML=emptyState('학생 없음', '추가하거나 필터를 바꿔보세요');
+    return;
+  }
+  visible.sort((a,b)=>(a.name||'').localeCompare(b.name||''));
+  let html='';
+  visible.forEach(s=>{
+    const teacherSet=[...new Set((s.classes||[]).map(c=>c.teacher).filter(Boolean))];
+    const teachers=teacherSet.map(t=>TEACHER_NAMES[t]||t).join(', ')||'-';
+    const books=Object.keys(s.books||{}).length;
+    html+='<div class="list-card"><div class="info"><div class="title">'+s.name+(s.hasEnglish?' <span class="badge resolved">영</span>':'')+'</div><div class="meta">'+gradeShort(s.grade)+' · '+teachers+' · 교재 '+books+'권</div></div><div class="actions"><button onclick="openEditStudentModal(\''+s.id+'\')">편집</button><button class="danger" onclick="deleteStudent(\''+s.id+'\',\''+s.name+'\')">삭제</button></div></div>';
+  });
+  document.getElementById('settingsList').innerHTML=html;
+}
+
+// Modal
+function openModal(title,bodyHtml,footerHtml){
+  document.getElementById('modalContent').innerHTML='<div class="modal-head"><div class="modal-title">'+title+'</div><button class="modal-close" onclick="closeModal()">✕</button></div><div class="modal-body">'+bodyHtml+'</div>'+(footerHtml?'<div class="modal-foot">'+footerHtml+'</div>':'');
+  document.getElementById('modalOverlay').classList.add('open');
+}
+function closeModal(){document.getElementById('modalOverlay').classList.remove('open');}
+document.getElementById('modalOverlay').addEventListener('click',e=>{if(e.target.id==='modalOverlay')closeModal();});
+
+function openAddStudentModal(){
+  const body=`
+    <div class="field"><div class="field-label">학생 이름 *</div><input class="field-input" id="ns_name" placeholder="홍길동"></div>
+    <div class="field"><div class="field-label">학생 ID (영문) *</div><input class="field-input" id="ns_id" placeholder="honggildong"></div>
+    <div class="field"><div class="field-label">학년</div><input class="field-input" id="ns_grade" placeholder="초4 / 중1"></div>
+    <div class="field"><div class="field-label">결제자</div><input class="field-input" id="ns_payer" placeholder="홍길동(아빠)"></div>
+    <div class="field"><div class="field-label">형제그룹</div><input class="field-input" id="ns_sibling" placeholder="홍길동·홍길순"></div>
+    <div class="field"><label style="display:flex;align-items:center;gap:6px;font-size:12px"><input type="checkbox" id="ns_eng">영어 병행</label></div>
+  `;
+  openModal('학생 추가',body,'<button class="btn" onclick="closeModal()">취소</button><button class="btn primary" onclick="saveNewStudent()">추가</button>');
+}
+function saveNewStudent(){
+  const name=document.getElementById('ns_name').value.trim();
+  const id=document.getElementById('ns_id').value.trim();
+  if(!name||!id){showToast('이름과 ID 필수','error');return;}
+  if(allStudents.find(s=>s.id===id)){showToast('ID 중복','error');return;}
+  const grade=document.getElementById('ns_grade').value.trim()||'?';
+  const kind=grade.startsWith('초')?'초등':(grade.startsWith('중')||grade.startsWith('고'))?'중등':'?';
+  const data={
+    name,grade,kind,
+    payer:document.getElementById('ns_payer').value.trim(),
+    siblingGroup:document.getElementById('ns_sibling').value.trim(),
+    hasEnglish:document.getElementById('ns_eng').checked,
+    classes:[],books:{}
+  };
+  firebase.database().ref('math_students/'+id).set(data).then(()=>{closeModal();showToast('학생 추가 완료','success');});
+}
+
+function openEditStudentModal(sid){
+  const s=allStudents.find(x=>x.id===sid);
+  if(!s)return;
+  const classesHtml=(s.classes||[]).map((c,i)=>'<div style="display:flex;gap:4px;margin-top:4px;align-items:center"><span style="font-size:11px;flex:1">'+c.day+'요일 '+c.time+' '+c.room+' '+(TEACHER_NAMES[c.teacher]||c.teacher)+'</span><button class="btn danger" style="padding:3px 8px;font-size:10px" onclick="removeClass(\''+sid+'\','+i+')">×</button></div>').join('');
+  const booksHtml=Object.entries(s.books||{}).map(([k,v])=>'<div style="display:flex;gap:4px;margin-top:4px"><input class="field-input" style="flex:1" value="'+escapeHtml(k)+'" data-bk-key><input class="field-input" style="flex:2" value="'+escapeHtml(v)+'" data-bk-val></div>').join('');
+  const body=`
+    <div class="field"><div class="field-label">이름</div><input class="field-input" id="es_name" value="${escapeHtml(s.name||'')}"></div>
+    <div class="field"><div class="field-label">학년</div><input class="field-input" id="es_grade" value="${escapeHtml(s.grade||'')}"></div>
+    <div class="field"><div class="field-label">결제자</div><input class="field-input" id="es_payer" value="${escapeHtml(s.payer||'')}"></div>
+    <div class="field"><div class="field-label">형제그룹</div><input class="field-input" id="es_sibling" value="${escapeHtml(s.siblingGroup||'')}"></div>
+    <div class="field"><label style="display:flex;align-items:center;gap:6px;font-size:12px"><input type="checkbox" id="es_eng" ${s.hasEnglish?'checked':''}>영어 병행</label></div>
+    <div class="field"><div class="field-label">수업 시간 <button class="btn" style="padding:3px 8px;font-size:10px;float:right" onclick="addClassRow('${sid}')">+ 추가</button></div><div id="es_classes">${classesHtml||'<div style="color:var(--text-subtle);font-size:11px">없음</div>'}</div></div>
+    <div class="field"><div class="field-label">교재 <button class="btn" style="padding:3px 8px;font-size:10px;float:right" onclick="addBookRow()">+ 추가</button></div><div id="es_books">${booksHtml}</div></div>
+  `;
+  openModal('학생 편집: '+s.name,body,'<button class="btn" onclick="closeModal()">취소</button><button class="btn primary" onclick="saveStudent(\''+sid+'\')">저장</button>');
+}
+function addBookRow(){
+  const div=document.createElement('div');
+  div.style.cssText='display:flex;gap:4px;margin-top:4px';
+  div.innerHTML='<input class="field-input" style="flex:1" placeholder="진도책" data-bk-key><input class="field-input" style="flex:2" placeholder="디딤돌 4-1" data-bk-val>';
+  document.getElementById('es_books').appendChild(div);
+}
+function addClassRow(sid){
+  const day=prompt('요일 (월/화/수/목/금)');
+  if(!day||!'월화수목금'.includes(day))return;
+  const time=prompt('시간 (예: 3:00~4:00)');
+  if(!time)return;
+  const room=prompt('강의실 (1강의실~5강의실)','3강의실');
+  if(!room)return;
+  const teacherChoice=prompt('강사 (imyoung/huijung/hwijae/wonjang/빈칸=특강)','imyoung');
+  const s=allStudents.find(x=>x.id===sid);
+  if(!s)return;
+  const newClasses=[...(s.classes||[]),{day,time,room,teacher:teacherChoice||''}];
+  firebase.database().ref('math_students/'+sid+'/classes').set(newClasses).then(()=>{
+    showToast('수업 추가','success');
+    setTimeout(()=>openEditStudentModal(sid),200);
+  });
+}
+function removeClass(sid,idx){
+  if(!confirm('이 수업을 제거할까요?'))return;
+  const s=allStudents.find(x=>x.id===sid);
+  if(!s)return;
+  const newClasses=(s.classes||[]).filter((_,i)=>i!==idx);
+  firebase.database().ref('math_students/'+sid+'/classes').set(newClasses).then(()=>{
+    showToast('수업 제거','success');
+    setTimeout(()=>openEditStudentModal(sid),200);
+  });
+}
+function saveStudent(sid){
+  const grade=document.getElementById('es_grade').value.trim()||'?';
+  const kind=grade.startsWith('초')?'초등':(grade.startsWith('중')||grade.startsWith('고'))?'중등':'?';
+  const updates={};
+  updates['math_students/'+sid+'/name']=document.getElementById('es_name').value.trim();
+  updates['math_students/'+sid+'/grade']=grade;
+  updates['math_students/'+sid+'/kind']=kind;
+  updates['math_students/'+sid+'/payer']=document.getElementById('es_payer').value.trim();
+  updates['math_students/'+sid+'/siblingGroup']=document.getElementById('es_sibling').value.trim();
+  updates['math_students/'+sid+'/hasEnglish']=document.getElementById('es_eng').checked;
+  // books
+  const bkKeys=document.querySelectorAll('#es_books [data-bk-key]');
+  const bkVals=document.querySelectorAll('#es_books [data-bk-val]');
+  const books={};
+  for(let i=0;i<bkKeys.length;i++){
+    const k=bkKeys[i].value.trim();
+    const v=bkVals[i].value.trim();
+    if(k)books[k]=v;
+  }
+  updates['math_students/'+sid+'/books']=books;
+  firebase.database().ref().update(updates).then(()=>{closeModal();showToast('저장 완료','success');});
+}
+function deleteStudent(sid,name){
+  if(!confirm(name+' 학생을 정말 삭제할까요? 진도/수업 기록은 남습니다.'))return;
+  firebase.database().ref('math_students/'+sid).remove().then(()=>showToast('삭제','success'));
+}
+
+function openBookEditModal(sid){
+  if(!sid){
+    // 일괄 등록 — 학생 선택 화면
+    const opts=allStudents.sort((a,b)=>(a.name||'').localeCompare(b.name||'')).map(s=>'<option value="'+s.id+'">'+s.name+' ('+gradeShort(s.grade)+')</option>').join('');
+    openModal('교재 일괄 등록','<div class="field"><div class="field-label">학생 선택</div><select class="field-input" id="bk_sid">'+opts+'</select></div><div id="bk_form" style="display:none"></div>','<button class="btn" onclick="closeModal()">닫기</button><button class="btn primary" onclick="loadBookEditForm()">학생 선택 → 편집</button>');
+    return;
+  }
+  const s=allStudents.find(x=>x.id===sid);
+  if(!s)return;
+  const booksHtml=Object.entries(s.books||{}).map(([k,v])=>'<div style="display:flex;gap:4px;margin-top:4px"><input class="field-input" style="flex:1" value="'+escapeHtml(k)+'" data-bk-key placeholder="진도책"><input class="field-input" style="flex:2" value="'+escapeHtml(v)+'" data-bk-val placeholder="디딤돌 4-1"><input class="field-input" style="width:55px" value="" data-bk-tot placeholder="total"></div>').join('');
+  const body='<div class="field"><div class="field-label">'+s.name+' 교재 <button class="btn" style="padding:3px 8px;font-size:10px;float:right" onclick="addBookRow()">+ 추가</button></div><div id="es_books">'+booksHtml+(Object.keys(s.books||{}).length===0?'<div style="display:flex;gap:4px;margin-top:4px"><input class="field-input" style="flex:1" placeholder="진도책" data-bk-key><input class="field-input" style="flex:2" placeholder="디딤돌 4-1" data-bk-val><input class="field-input" style="width:55px" placeholder="total" data-bk-tot></div>':'')+'</div></div>';
+  openModal(s.name+' 교재 편집',body,'<button class="btn" onclick="closeModal()">취소</button><button class="btn primary" onclick="saveBooks(\''+sid+'\')">저장</button>');
+}
+function loadBookEditForm(){
+  const sid=document.getElementById('bk_sid').value;
+  closeModal();
+  setTimeout(()=>openBookEditModal(sid),100);
+}
+function saveBooks(sid){
+  const bkKeys=document.querySelectorAll('#es_books [data-bk-key]');
+  const bkVals=document.querySelectorAll('#es_books [data-bk-val]');
+  const bkTots=document.querySelectorAll('#es_books [data-bk-tot]');
+  const books={};
+  const updates={};
+  for(let i=0;i<bkKeys.length;i++){
+    const k=bkKeys[i].value.trim();
+    const v=bkVals[i].value.trim();
+    const tot=parseInt(bkTots[i]?.value)||0;
+    if(k){
+      books[k]=v;
+      if(tot>0){
+        updates['math_progress/'+sid+'/'+k+'/total']=tot;
+        updates['math_progress/'+sid+'/'+k+'/current']=progressData[sid]?.[k]?.current||0;
+      }
+    }
+  }
+  updates['math_students/'+sid+'/books']=books;
+  firebase.database().ref().update(updates).then(()=>{closeModal();showToast('교재 저장','success');});
+}
+
 function emptyState(title,msg){
   return '<div class="empty"><div class="empty-icon">📭</div><div class="empty-title">'+title+'</div><div>'+msg+'</div></div>';
 }
-</script>
+function showToast(msg,kind){
+  const t=document.createElement('div');
+  t.className='toast '+(kind||'');
+  t.textContent=msg;
+  document.body.appendChild(t);
+  setTimeout(()=>{t.remove();},1800);
+}
 
+// Init
+setDateDisplay();
+</script>
 </body>
 </html>
