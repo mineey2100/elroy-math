@@ -3,95 +3,490 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="theme-color" content="#1d4ed8">
 <title>엘로이 수학</title>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧮</text></svg>">
 <style>
-* { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
-body { font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', sans-serif; background: #f5f7fb; color: #1a202c; padding-bottom: 80px; }
-header { background: #fff; padding: 14px 16px; border-bottom: 1px solid #e5e7eb; position: sticky; top: 0; z-index: 100; display: flex; justify-content: space-between; align-items: center; }
-h1 { font-size: 18px; font-weight: 700; color: #1d4ed8; }
-.teacher-badge { font-size: 12px; padding: 4px 10px; background: #dbeafe; color: #1e40af; border-radius: 12px; font-weight: 600; }
-nav { display: flex; background: #fff; border-bottom: 1px solid #e5e7eb; overflow-x: auto; position: sticky; top: 51px; z-index: 99; }
-nav button { flex: 1; min-width: 80px; padding: 12px 8px; background: none; border: none; font-size: 13px; cursor: pointer; color: #64748b; font-weight: 500; border-bottom: 3px solid transparent; }
-nav button.active { color: #1d4ed8; border-bottom-color: #1d4ed8; font-weight: 700; }
-main { padding: 16px; max-width: 900px; margin: 0 auto; }
-.tab { display: none; }
-.tab.active { display: block; }
-.section-title { font-size: 14px; font-weight: 700; color: #475569; margin: 16px 0 8px; }
-.summary { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 16px; }
-.summary-card { background: #fff; padding: 14px 10px; border-radius: 10px; text-align: center; box-shadow: 0 1px 2px rgba(0,0,0,0.04); }
-.summary-card .num { font-size: 22px; font-weight: 700; color: #1d4ed8; }
-.summary-card .lbl { font-size: 11px; color: #64748b; margin-top: 2px; }
-.class-divider { padding: 8px 0 4px; font-size: 13px; font-weight: 700; color: #334155; border-top: 1px solid #e2e8f0; margin-top: 12px; }
-.class-divider:first-child { border-top: none; margin-top: 0; }
-.student-card { background: #fff; border-radius: 10px; padding: 12px 14px; margin-bottom: 8px; box-shadow: 0 1px 2px rgba(0,0,0,0.04); display: flex; justify-content: space-between; align-items: center; }
-.student-name { font-size: 15px; font-weight: 600; }
-.student-meta { font-size: 11px; color: #64748b; margin-top: 2px; }
-.eng-tag { display: inline-block; font-size: 10px; padding: 1px 6px; background: #fef3c7; color: #92400e; border-radius: 8px; margin-left: 4px; }
-.progress-bar { width: 100%; height: 8px; background: #e2e8f0; border-radius: 4px; overflow: hidden; margin-top: 6px; }
-.progress-fill { height: 100%; background: #1d4ed8; border-radius: 4px; transition: width 0.3s; }
-.progress-row { background: #fff; border-radius: 10px; padding: 12px; margin-bottom: 8px; }
-.progress-book { font-size: 12px; color: #64748b; }
-.progress-pct { font-size: 11px; color: #1d4ed8; float: right; font-weight: 600; }
-.timetable { background: #fff; border-radius: 10px; padding: 12px; margin-bottom: 8px; }
-.timetable-day { font-weight: 700; font-size: 14px; color: #1d4ed8; margin-bottom: 8px; }
-.timetable-row { display: flex; padding: 6px 0; border-top: 1px solid #f1f5f9; font-size: 13px; }
-.timetable-row:first-child { border-top: none; }
-.timetable-time { width: 80px; color: #64748b; font-size: 11px; }
-.timetable-students { flex: 1; line-height: 1.5; }
-.timetable-room { display: inline-block; font-size: 10px; padding: 1px 5px; background: #e0e7ff; color: #3730a3; border-radius: 6px; margin-right: 4px; }
-.empty { text-align: center; color: #94a3b8; padding: 40px 20px; font-size: 13px; }
-.loading { text-align: center; padding: 40px; color: #64748b; }
-.btn { padding: 8px 14px; background: #1d4ed8; color: #fff; border: none; border-radius: 6px; font-size: 13px; cursor: pointer; }
-.btn:active { opacity: 0.8; }
-.input { padding: 6px 8px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 13px; }
+:root {
+  --bg: #f1f5f9;
+  --surface: #ffffff;
+  --surface-2: #f8fafc;
+  --border: #e2e8f0;
+  --text: #0f172a;
+  --text-muted: #64748b;
+  --text-subtle: #94a3b8;
+  --primary: #1d4ed8;
+  --primary-light: #dbeafe;
 
-@media (max-width: 480px) {
-  .summary { grid-template-columns: repeat(3, 1fr); }
-  .summary-card .num { font-size: 18px; }
+  --imyoung: #2563eb;
+  --imyoung-bg: #dbeafe;
+  --huijung: #db2777;
+  --huijung-bg: #fce7f3;
+  --hwijae: #059669;
+  --hwijae-bg: #d1fae5;
+  --wonjang: #7c3aed;
+  --wonjang-bg: #ede9fe;
+  --special: #d97706;
+  --special-bg: #fef3c7;
+
+  --shadow-sm: 0 1px 2px rgba(15, 23, 42, 0.04);
+  --shadow-md: 0 4px 12px rgba(15, 23, 42, 0.06);
+  --radius: 12px;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+html, body { height: 100%; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Pretendard', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  font-size: 14px;
+  line-height: 1.5;
+  padding-bottom: 90px;
+  -webkit-font-smoothing: antialiased;
+}
+
+header {
+  background: linear-gradient(135deg, #1d4ed8, #2563eb);
+  color: #fff;
+  padding: 18px 18px 14px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: var(--shadow-md);
+}
+.header-row { display: flex; justify-content: space-between; align-items: center; }
+h1 { font-size: 17px; font-weight: 700; display: flex; align-items: center; gap: 6px; }
+h1 .logo { font-size: 22px; }
+.teacher-badge {
+  font-size: 12px;
+  padding: 5px 12px;
+  background: rgba(255,255,255,0.2);
+  color: #fff;
+  border-radius: 14px;
+  font-weight: 600;
+  border: 1px solid rgba(255,255,255,0.3);
+}
+
+.search-box {
+  margin-top: 12px;
+  background: rgba(255,255,255,0.95);
+  border-radius: 10px;
+  padding: 8px 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.search-box input {
+  border: none; outline: none; flex: 1;
+  background: transparent;
+  font-size: 14px;
+  color: var(--text);
+}
+.search-box .icon { color: var(--text-muted); font-size: 14px; }
+.search-clear {
+  background: none; border: none; color: var(--text-muted); cursor: pointer; font-size: 14px;
+  padding: 0 4px;
+}
+
+nav {
+  display: flex;
+  background: var(--surface);
+  border-top: 1px solid var(--border);
+  position: fixed;
+  bottom: 0; left: 0; right: 0;
+  z-index: 99;
+  box-shadow: 0 -2px 8px rgba(15,23,42,0.05);
+}
+nav button {
+  flex: 1;
+  padding: 12px 6px 10px;
+  background: none; border: none;
+  font-size: 11px;
+  cursor: pointer;
+  color: var(--text-muted);
+  font-weight: 500;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  transition: color 0.15s;
+}
+nav button .nav-icon { font-size: 20px; line-height: 1; }
+nav button.active { color: var(--primary); font-weight: 700; }
+
+main { padding: 16px 14px 20px; max-width: 760px; margin: 0 auto; }
+.tab { display: none; animation: fadeIn 0.2s; }
+.tab.active { display: block; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: none; } }
+
+.section-title {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--text-muted);
+  margin: 18px 4px 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.section-title:first-child { margin-top: 4px; }
+.section-title .count {
+  background: var(--surface);
+  color: var(--text-muted);
+  padding: 2px 8px;
+  border-radius: 10px;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: none;
+}
+
+.summary { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+.summary-card {
+  background: var(--surface);
+  padding: 14px 8px;
+  border-radius: var(--radius);
+  text-align: center;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--border);
+}
+.summary-card .num { font-size: 22px; font-weight: 800; color: var(--primary); line-height: 1; }
+.summary-card .lbl { font-size: 10px; color: var(--text-muted); margin-top: 4px; font-weight: 600; }
+
+.slot {
+  background: var(--surface);
+  border-radius: var(--radius);
+  margin-bottom: 10px;
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--border);
+}
+.slot-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 11px 14px;
+  border-left: 4px solid var(--primary);
+  background: var(--surface-2);
+}
+.slot-header.t-imyoung { border-left-color: var(--imyoung); }
+.slot-header.t-huijung { border-left-color: var(--huijung); }
+.slot-header.t-hwijae { border-left-color: var(--hwijae); }
+.slot-header.t-wonjang { border-left-color: var(--wonjang); }
+.slot-header.t-special { border-left-color: var(--special); }
+.slot-meta { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.slot-day { font-weight: 700; font-size: 13px; color: var(--text); }
+.slot-time { font-size: 12px; color: var(--text-muted); font-weight: 500; }
+.slot-room {
+  font-size: 10px;
+  padding: 2px 7px;
+  background: var(--primary-light);
+  color: var(--primary);
+  border-radius: 8px;
+  font-weight: 600;
+}
+.t-imyoung .slot-room { background: var(--imyoung-bg); color: var(--imyoung); }
+.t-huijung .slot-room { background: var(--huijung-bg); color: var(--huijung); }
+.t-hwijae .slot-room { background: var(--hwijae-bg); color: var(--hwijae); }
+.t-wonjang .slot-room { background: var(--wonjang-bg); color: var(--wonjang); }
+.t-special .slot-room { background: var(--special-bg); color: var(--special); }
+.slot-teacher { font-size: 12px; color: var(--text-muted); font-weight: 500; }
+.slot-students { display: flex; flex-wrap: wrap; gap: 6px; padding: 10px 14px 12px; }
+.chip {
+  padding: 5px 10px;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  font-size: 12px;
+  color: var(--text);
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+.chip.has-eng { background: linear-gradient(135deg, #fef3c7, #fde68a); border-color: #fcd34d; }
+.chip.has-eng::after {
+  content: 'E';
+  font-size: 9px;
+  background: #d97706;
+  color: #fff;
+  padding: 1px 4px;
+  border-radius: 4px;
+  font-weight: 700;
+  margin-left: 2px;
+}
+.chip-grade { font-size: 9px; color: var(--text-subtle); font-weight: 700; margin-right: 1px; }
+
+.student-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 10px;
+}
+.student-card {
+  background: var(--surface);
+  border-radius: var(--radius);
+  padding: 12px;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--border);
+}
+.student-card .name {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text);
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.eng-tag {
+  font-size: 9px;
+  padding: 2px 5px;
+  background: var(--special-bg);
+  color: var(--special);
+  border-radius: 5px;
+  font-weight: 700;
+}
+.student-card .meta { font-size: 11px; color: var(--text-muted); margin-top: 2px; }
+.student-card .teachers { display: flex; gap: 3px; flex-wrap: wrap; margin-top: 8px; }
+.teacher-pill {
+  font-size: 9px;
+  padding: 2px 6px;
+  border-radius: 6px;
+  font-weight: 700;
+  background: var(--surface-2);
+  color: var(--text-muted);
+}
+.teacher-pill.t-imyoung { background: var(--imyoung-bg); color: var(--imyoung); }
+.teacher-pill.t-huijung { background: var(--huijung-bg); color: var(--huijung); }
+.teacher-pill.t-hwijae { background: var(--hwijae-bg); color: var(--hwijae); }
+.teacher-pill.t-wonjang { background: var(--wonjang-bg); color: var(--wonjang); }
+.teacher-pill.t-special { background: var(--special-bg); color: var(--special); }
+
+.progress-row {
+  background: var(--surface);
+  border-radius: var(--radius);
+  padding: 14px;
+  margin-bottom: 10px;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--border);
+}
+.progress-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+.progress-head .name { font-size: 15px; font-weight: 700; }
+.progress-head .grade { font-size: 11px; color: var(--text-muted); margin-left: 6px; font-weight: 500; }
+.progress-empty { font-size: 11px; color: var(--text-subtle); font-style: italic; }
+.progress-item { margin-top: 10px; }
+.progress-item:first-child { margin-top: 0; }
+.progress-item-head {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  margin-bottom: 5px;
+}
+.progress-book { color: var(--text-muted); font-weight: 500; }
+.progress-book b { color: var(--text); margin-right: 4px; }
+.progress-pct { color: var(--primary); font-weight: 700; }
+.progress-bar { width: 100%; height: 6px; background: var(--border); border-radius: 3px; overflow: hidden; }
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #3b82f6, #1d4ed8);
+  border-radius: 3px;
+  transition: width 0.3s;
+}
+
+.timetable {
+  background: var(--surface);
+  border-radius: var(--radius);
+  margin-bottom: 12px;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--border);
+  overflow: hidden;
+}
+.timetable-day {
+  background: linear-gradient(135deg, var(--primary), #2563eb);
+  color: #fff;
+  font-weight: 700;
+  font-size: 13px;
+  padding: 10px 14px;
+}
+.timetable-row {
+  display: flex;
+  padding: 10px 14px;
+  border-top: 1px solid var(--border);
+  font-size: 13px;
+  align-items: flex-start;
+}
+.timetable-row:first-of-type { border-top: none; }
+.timetable-time {
+  width: 78px;
+  flex-shrink: 0;
+  color: var(--text-muted);
+  font-size: 11px;
+  font-weight: 600;
+  padding-top: 2px;
+}
+.timetable-slots { flex: 1; display: flex; flex-direction: column; gap: 6px; }
+.timetable-slot {
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+  flex-wrap: wrap;
+  font-size: 12px;
+  line-height: 1.5;
+}
+.timetable-slot .room-pill {
+  font-size: 9px;
+  padding: 2px 6px;
+  border-radius: 5px;
+  font-weight: 700;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+.timetable-slot.t-imyoung .room-pill { background: var(--imyoung-bg); color: var(--imyoung); }
+.timetable-slot.t-huijung .room-pill { background: var(--huijung-bg); color: var(--huijung); }
+.timetable-slot.t-hwijae .room-pill { background: var(--hwijae-bg); color: var(--hwijae); }
+.timetable-slot.t-wonjang .room-pill { background: var(--wonjang-bg); color: var(--wonjang); }
+.timetable-slot.t-special .room-pill { background: var(--special-bg); color: var(--special); }
+.timetable-slot .teacher-name { font-weight: 700; font-size: 11px; margin-right: 2px; }
+.timetable-slot.t-imyoung .teacher-name { color: var(--imyoung); }
+.timetable-slot.t-huijung .teacher-name { color: var(--huijung); }
+.timetable-slot.t-hwijae .teacher-name { color: var(--hwijae); }
+.timetable-slot.t-wonjang .teacher-name { color: var(--wonjang); }
+.timetable-slot.t-special .teacher-name { color: var(--special); }
+.timetable-slot .stu-list { font-size: 12px; color: var(--text); }
+
+.empty {
+  text-align: center;
+  color: var(--text-subtle);
+  padding: 60px 20px;
+  font-size: 13px;
+  background: var(--surface);
+  border-radius: var(--radius);
+  border: 1px dashed var(--border);
+}
+.empty .empty-icon { font-size: 36px; margin-bottom: 10px; opacity: 0.5; }
+.empty .empty-title { font-weight: 600; color: var(--text-muted); margin-bottom: 4px; }
+.loading { text-align: center; padding: 60px 20px; color: var(--text-muted); }
+.spinner {
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  border: 3px solid var(--border);
+  border-top-color: var(--primary);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+  margin-bottom: 8px;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.filter-bar {
+  display: flex;
+  gap: 6px;
+  overflow-x: auto;
+  padding: 4px 0 8px;
+  scrollbar-width: none;
+}
+.filter-bar::-webkit-scrollbar { display: none; }
+.filter-chip {
+  padding: 6px 12px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  font-size: 12px;
+  color: var(--text-muted);
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.filter-chip.active {
+  background: var(--primary);
+  color: #fff;
+  border-color: var(--primary);
+}
+
+@media (min-width: 720px) {
+  body { padding-bottom: 0; }
+  nav {
+    position: sticky;
+    top: 0;
+    bottom: auto;
+    box-shadow: var(--shadow-sm);
+    border-top: none;
+    border-bottom: 1px solid var(--border);
+  }
+  nav button {
+    flex-direction: row;
+    padding: 14px 12px;
+    font-size: 13px;
+    gap: 6px;
+    border-bottom: 3px solid transparent;
+    border-top: none;
+  }
+  nav button .nav-icon { font-size: 16px; }
+  nav button.active { border-bottom-color: var(--primary); }
+  header { padding-bottom: 16px; }
+  main { padding: 24px; }
+}
+
+@media (min-width: 1024px) {
+  .student-grid { grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); }
 }
 </style>
 </head>
 <body>
 
 <header>
-  <h1>🧮 엘로이 수학</h1>
-  <span class="teacher-badge" id="teacherBadge">전체 보기</span>
+  <div class="header-row">
+    <h1><span class="logo">🧮</span> 엘로이 수학</h1>
+    <span class="teacher-badge" id="teacherBadge">전체 보기</span>
+  </div>
+  <div class="search-box">
+    <span class="icon">🔍</span>
+    <input id="searchInput" placeholder="학생 이름 검색..." autocomplete="off">
+    <button class="search-clear" id="searchClear" style="display:none">✕</button>
+  </div>
 </header>
-
-<nav>
-  <button class="active" data-tab="home">🏠 홈</button>
-  <button data-tab="class">수업</button>
-  <button data-tab="progress">📊 진도</button>
-  <button data-tab="timetable">📅 시간표</button>
-</nav>
 
 <main>
   <div id="home" class="tab active">
+    <div class="section-title">요약 <span class="count" id="lastUpdate">-</span></div>
     <div class="summary">
       <div class="summary-card"><div class="num" id="totalCount">-</div><div class="lbl">수강생</div></div>
       <div class="summary-card"><div class="num" id="elemCount">-</div><div class="lbl">초등</div></div>
       <div class="summary-card"><div class="num" id="middleCount">-</div><div class="lbl">중등</div></div>
+      <div class="summary-card"><div class="num" id="engCount">-</div><div class="lbl">영어 병행</div></div>
     </div>
-    <div class="section-title">반별 학생</div>
-    <div id="homeList" class="loading">불러오는 중…</div>
+    <div class="section-title">수업 시간표 <span class="count" id="slotCount">0개</span></div>
+    <div id="homeList" class="loading"><div class="spinner"></div><div>불러오는 중…</div></div>
   </div>
 
   <div id="class" class="tab">
-    <div class="section-title">오늘 수업</div>
-    <div id="classList" class="loading">불러오는 중…</div>
+    <div class="section-title">학생 목록 <span class="count" id="classStuCount">0명</span></div>
+    <div class="filter-bar" id="classFilters"></div>
+    <div id="classList" class="loading"><div class="spinner"></div><div>불러오는 중…</div></div>
   </div>
 
   <div id="progress" class="tab">
     <div class="section-title">학생 진도</div>
-    <div id="progressList" class="loading">불러오는 중…</div>
+    <div id="progressList" class="loading"><div class="spinner"></div><div>불러오는 중…</div></div>
   </div>
 
   <div id="timetable" class="tab">
     <div class="section-title">주간 시간표</div>
-    <div id="timetableList" class="loading">불러오는 중…</div>
+    <div id="timetableList" class="loading"><div class="spinner"></div><div>불러오는 중…</div></div>
   </div>
 </main>
+
+<nav>
+  <button class="active" data-tab="home"><span class="nav-icon">🏠</span><span>홈</span></button>
+  <button data-tab="class"><span class="nav-icon">👥</span><span>수업</span></button>
+  <button data-tab="progress"><span class="nav-icon">📊</span><span>진도</span></button>
+  <button data-tab="timetable"><span class="nav-icon">📅</span><span>시간표</span></button>
+</nav>
 
 <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
@@ -108,171 +503,236 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 const db = firebase.database();
 
-// ?teacher= 파라미터 처리
 const urlParams = new URLSearchParams(location.search);
 const currentTeacher = urlParams.get('teacher') || 'admin';
-const TEACHER_NAMES = {
-  admin: '전체 보기',
-  imyoung: '임영쌤',
-  huijung: '희정쌤',
-  hwijae: '휘재쌤',
-  wonjang: '원장쌤'
-};
+const TEACHER_NAMES = { admin: '전체 보기', imyoung: '임영쌤', huijung: '희정쌤', hwijae: '휘재쌤', wonjang: '원장쌤' };
+const TEACHER_CLASS = (t) => !t ? 't-special' : 't-' + t;
 document.getElementById('teacherBadge').textContent = TEACHER_NAMES[currentTeacher] || currentTeacher;
 
-// 탭 전환
+let allStudents = [];
+let progressData = {};
+let searchTerm = '';
+let activeFilter = 'all';
+
 document.querySelectorAll('nav button').forEach(b => {
   b.addEventListener('click', () => {
     document.querySelectorAll('nav button').forEach(x => x.classList.remove('active'));
     document.querySelectorAll('.tab').forEach(x => x.classList.remove('active'));
     b.classList.add('active');
     document.getElementById(b.dataset.tab).classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   });
 });
 
-// 학생 데이터 필터
+const searchInput = document.getElementById('searchInput');
+const searchClear = document.getElementById('searchClear');
+searchInput.addEventListener('input', e => {
+  searchTerm = e.target.value.trim();
+  searchClear.style.display = searchTerm ? 'block' : 'none';
+  renderAll();
+});
+searchClear.addEventListener('click', () => {
+  searchInput.value = '';
+  searchTerm = '';
+  searchClear.style.display = 'none';
+  renderAll();
+});
+
 function filterByTeacher(students) {
   if (currentTeacher === 'admin') return students;
   return students.filter(s => (s.classes || []).some(c => c.teacher === currentTeacher));
 }
+function filterBySearch(students) {
+  if (!searchTerm) return students;
+  return students.filter(s => s.name && s.name.includes(searchTerm));
+}
 
-// 학생 ID, 데이터
-let allStudents = [];
-
-// 데이터 로드
 db.ref('math_students').on('value', snap => {
   const data = snap.val() || {};
   allStudents = Object.entries(data).map(([id, s]) => ({ id, ...s }));
-  renderHome();
-  renderClass();
-  renderTimetable();
+  document.getElementById('lastUpdate').textContent = new Date().toLocaleTimeString('ko-KR', {hour:'2-digit',minute:'2-digit'}) + ' 갱신';
+  renderAll();
 });
 db.ref('math_progress').on('value', snap => {
-  window._progress = snap.val() || {};
+  progressData = snap.val() || {};
   renderProgress();
 });
 
+function renderAll() { renderHome(); renderClass(); renderProgress(); renderTimetable(); }
+
+const DAY_ORDER = '월화수목금';
+const TIME_TO_NUM = (t) => {
+  const m = String(t || '').match(/(\d+):(\d+)/);
+  return m ? parseInt(m[1])*60 + parseInt(m[2]) : 9999;
+};
+
+function gradeShort(g) {
+  if (!g || g === '?') return '?';
+  if (g.startsWith('초') || g.startsWith('중') || g.startsWith('고')) return g;
+  if (/^\d+$/.test(g)) return '초' + g;
+  return g;
+}
+function normGrade(s) {
+  const g = s.grade || '?';
+  if (g === '?') return '?';
+  if (g.startsWith('중') || g.startsWith('고')) return g;
+  if (/^\d+$/.test(g)) return '초' + g;
+  return g;
+}
+
 function renderHome() {
   const filtered = filterByTeacher(allStudents);
+  const searched = filterBySearch(filtered);
   document.getElementById('totalCount').textContent = filtered.length;
   document.getElementById('elemCount').textContent = filtered.filter(s => s.kind === '초등').length;
   document.getElementById('middleCount').textContent = filtered.filter(s => s.kind === '중등').length;
+  document.getElementById('engCount').textContent = filtered.filter(s => s.hasEnglish).length;
 
-  if (filtered.length === 0) {
-    document.getElementById('homeList').innerHTML = '<div class="empty">학생 데이터가 없습니다</div>';
+  if (searched.length === 0) {
+    document.getElementById('homeList').innerHTML = emptyState('학생 없음', searchTerm ? '"' + searchTerm + '" 검색 결과가 없어요' : '학생 데이터를 불러오는 중...');
+    document.getElementById('slotCount').textContent = '0개';
     return;
   }
-  // 강사별 그룹핑
-  const byTeacher = {};
-  filtered.forEach(s => {
+
+  const slots = {};
+  searched.forEach(s => {
     (s.classes || []).forEach(c => {
-      const key = `${c.teacher}_${c.day}_${c.time}`;
-      if (!byTeacher[key]) byTeacher[key] = { teacher: c.teacher, day: c.day, time: c.time, room: c.room, students: [] };
-      if (!byTeacher[key].students.find(x => x.id === s.id)) byTeacher[key].students.push(s);
+      if (currentTeacher !== 'admin' && c.teacher !== currentTeacher) return;
+      const key = c.day + '|' + c.time + '|' + c.room + '|' + c.teacher;
+      if (!slots[key]) slots[key] = Object.assign({}, c, { students: [] });
+      if (!slots[key].students.find(x => x.id === s.id)) slots[key].students.push(s);
     });
   });
-  const groups = Object.values(byTeacher).sort((a,b) => {
-    const dayOrder = '월화수목금';
-    const da = dayOrder.indexOf(a.day), dbi = dayOrder.indexOf(b.day);
+  const groups = Object.values(slots).sort((a,b) => {
+    const da = DAY_ORDER.indexOf(a.day);
+    const dbi = DAY_ORDER.indexOf(b.day);
     if (da !== dbi) return da - dbi;
-    return (a.time || '').localeCompare(b.time || '');
+    return TIME_TO_NUM(a.time) - TIME_TO_NUM(b.time);
   });
+  document.getElementById('slotCount').textContent = groups.length + '개';
+
   let html = '';
   groups.forEach(g => {
-    html += `<div class="class-divider">${g.day} ${g.time} · <span class="timetable-room">${g.room}</span> ${TEACHER_NAMES[g.teacher] || g.teacher}</div>`;
+    const tc = TEACHER_CLASS(g.teacher);
+    const tdisp = TEACHER_NAMES[g.teacher] || (g.teacher ? g.teacher : '특강');
+    html += '<div class="slot"><div class="slot-header ' + tc + '"><div class="slot-meta"><span class="slot-day">' + g.day + '요일</span><span class="slot-time">' + g.time + '</span><span class="slot-room">' + (g.room || '').replace('강의실','강') + '</span></div><span class="slot-teacher">' + tdisp + '</span></div><div class="slot-students">';
     g.students.forEach(s => {
-      html += `<div class="student-card">
-        <div>
-          <div class="student-name">${s.name}${s.hasEnglish ? '<span class="eng-tag">영어</span>' : ''}</div>
-          <div class="student-meta">${s.grade || ''} · ${s.payer || ''}</div>
-        </div>
-      </div>`;
+      html += '<span class="chip' + (s.hasEnglish ? ' has-eng' : '') + '"><span class="chip-grade">' + gradeShort(s.grade) + '</span>' + s.name + '</span>';
     });
+    html += '</div></div>';
   });
-  document.getElementById('homeList').innerHTML = html || '<div class="empty">표시할 수업이 없습니다</div>';
+  document.getElementById('homeList').innerHTML = html;
 }
 
 function renderClass() {
   const filtered = filterByTeacher(allStudents);
-  if (filtered.length === 0) {
-    document.getElementById('classList').innerHTML = '<div class="empty">수업 데이터가 없습니다</div>';
+  const searched = filterBySearch(filtered);
+
+  const filters = ['all', '초2','초3','초4','초5','초6','중1','중2','중3','?'];
+  const fbar = document.getElementById('classFilters');
+  fbar.innerHTML = filters.map(f => {
+    const cnt = f === 'all' ? searched.length : searched.filter(s => normGrade(s) === f).length;
+    if (cnt === 0 && f !== 'all') return '';
+    const label = f === 'all' ? ('전체 ' + cnt) : ((f === '?' ? '미설정' : f) + ' ' + cnt);
+    return '<button class="filter-chip ' + (activeFilter===f?'active':'') + '" data-f="' + f + '">' + label + '</button>';
+  }).join('');
+  fbar.querySelectorAll('.filter-chip').forEach(b => {
+    b.addEventListener('click', () => { activeFilter = b.dataset.f; renderClass(); });
+  });
+
+  let visible = searched;
+  if (activeFilter !== 'all') visible = visible.filter(s => normGrade(s) === activeFilter);
+  document.getElementById('classStuCount').textContent = visible.length + '명';
+
+  if (visible.length === 0) {
+    document.getElementById('classList').innerHTML = emptyState('학생 없음', searchTerm ? '"' + searchTerm + '" 검색 결과가 없어요' : '필터에 해당하는 학생이 없습니다');
     return;
   }
-  // Phase 1 MVP: 학생 카드 표시 (수업 기록 입력은 Phase 2)
-  let html = '';
-  filtered.sort((a,b) => (a.name || '').localeCompare(b.name || '')).forEach(s => {
-    const books = Object.values(s.books || {}).join(' / ') || '교재 미설정';
-    html += `<div class="student-card">
-      <div>
-        <div class="student-name">${s.name}</div>
-        <div class="student-meta">${books}</div>
-      </div>
-    </div>`;
+
+  visible.sort((a,b) => (a.name||'').localeCompare(b.name||''));
+  let html = '<div class="student-grid">';
+  visible.forEach(s => {
+    const teacherSet = [...new Set((s.classes||[]).map(c => c.teacher).filter(Boolean))];
+    const teachersHtml = teacherSet.map(t => '<span class="teacher-pill ' + TEACHER_CLASS(t) + '">' + (TEACHER_NAMES[t] || t) + '</span>').join('');
+    const grade = gradeShort(s.grade);
+    html += '<div class="student-card"><div class="name">' + s.name + (s.hasEnglish ? '<span class="eng-tag">영어</span>' : '') + '</div><div class="meta">' + grade + ' · ' + (s.payer || '-') + '</div><div class="teachers">' + (teachersHtml || '<span class="teacher-pill">-</span>') + '</div></div>';
   });
+  html += '</div>';
   document.getElementById('classList').innerHTML = html;
 }
 
 function renderProgress() {
   const filtered = filterByTeacher(allStudents);
-  const progress = window._progress || {};
-  if (filtered.length === 0) {
-    document.getElementById('progressList').innerHTML = '<div class="empty">진도 데이터가 없습니다</div>';
+  const searched = filterBySearch(filtered);
+  if (searched.length === 0) {
+    document.getElementById('progressList').innerHTML = emptyState('진도 데이터 없음', '학생을 추가해주세요');
     return;
   }
+  searched.sort((a,b) => (a.name||'').localeCompare(b.name||''));
   let html = '';
-  filtered.sort((a,b) => (a.name || '').localeCompare(b.name || '')).forEach(s => {
+  searched.forEach(s => {
     const books = s.books || {};
-    const stuProg = progress[s.id] || {};
-    html += `<div class="progress-row"><div class="student-name">${s.name} <span class="student-meta">${s.grade || ''}</span></div>`;
-    Object.entries(books).forEach(([book, bookName]) => {
-      const p = stuProg[book] || {};
-      const cur = p.current || 0, tot = p.total || 0;
-      const pct = tot > 0 ? Math.round(cur / tot * 100) : 0;
-      html += `<div style="margin-top:8px;">
-        <span class="progress-book">${book}: ${bookName}</span>
-        <span class="progress-pct">${cur}/${tot} (${pct}%)</span>
-        <div class="progress-bar"><div class="progress-fill" style="width:${pct}%"></div></div>
-      </div>`;
-    });
-    html += `</div>`;
+    const stuProg = progressData[s.id] || {};
+    const bookKeys = Object.keys(books);
+    html += '<div class="progress-row"><div class="progress-head"><div><span class="name">' + s.name + '</span><span class="grade">' + gradeShort(s.grade) + '</span></div></div>';
+    if (bookKeys.length === 0) {
+      html += '<div class="progress-empty">교재 미설정</div>';
+    } else {
+      bookKeys.forEach(book => {
+        const p = stuProg[book] || {};
+        const cur = p.current || 0, tot = p.total || 0;
+        const pct = tot > 0 ? Math.round(cur / tot * 100) : 0;
+        html += '<div class="progress-item"><div class="progress-item-head"><span class="progress-book"><b>' + book + '</b>' + books[book] + '</span><span class="progress-pct">' + cur + '/' + tot + ' · ' + pct + '%</span></div><div class="progress-bar"><div class="progress-fill" style="width:' + pct + '%"></div></div></div>';
+      });
+    }
+    html += '</div>';
   });
   document.getElementById('progressList').innerHTML = html;
 }
 
 function renderTimetable() {
   const filtered = filterByTeacher(allStudents);
-  if (filtered.length === 0) {
-    document.getElementById('timetableList').innerHTML = '<div class="empty">시간표 데이터가 없습니다</div>';
+  const searched = filterBySearch(filtered);
+  if (searched.length === 0) {
+    document.getElementById('timetableList').innerHTML = emptyState('시간표 없음', searchTerm ? '"' + searchTerm + '" 검색 결과가 없어요' : '학생 데이터가 없습니다');
     return;
   }
   const days = ['월','화','수','목','금'];
   const grid = {};
   days.forEach(d => grid[d] = {});
-  filtered.forEach(s => {
+  searched.forEach(s => {
     (s.classes || []).forEach(c => {
-      const key = c.time;
+      if (currentTeacher !== 'admin' && c.teacher !== currentTeacher) return;
       if (!grid[c.day]) return;
-      if (!grid[c.day][key]) grid[c.day][key] = { time: c.time, slots: {} };
-      const roomKey = `${c.room}|${c.teacher}`;
-      if (!grid[c.day][key].slots[roomKey]) grid[c.day][key].slots[roomKey] = { room: c.room, teacher: c.teacher, students: [] };
-      grid[c.day][key].slots[roomKey].students.push(s.name);
+      const t = c.time;
+      if (!grid[c.day][t]) grid[c.day][t] = {};
+      const slotKey = c.room + '|' + c.teacher;
+      if (!grid[c.day][t][slotKey]) grid[c.day][t][slotKey] = { room: c.room, teacher: c.teacher, students: [] };
+      if (!grid[c.day][t][slotKey].students.includes(s.name)) grid[c.day][t][slotKey].students.push(s.name);
     });
   });
   let html = '';
   days.forEach(d => {
-    const slots = Object.values(grid[d]).sort((a,b) => (a.time || '').localeCompare(b.time || ''));
-    if (slots.length === 0) return;
-    html += `<div class="timetable"><div class="timetable-day">${d}요일</div>`;
-    slots.forEach(slot => {
-      html += `<div class="timetable-row"><div class="timetable-time">${slot.time}</div><div class="timetable-students">`;
-      Object.values(slot.slots).forEach(rt => {
-        html += `<div><span class="timetable-room">${rt.room.replace('강의실','강')}</span><b>${TEACHER_NAMES[rt.teacher] || rt.teacher}</b>: ${rt.students.join(', ')}</div>`;
+    const times = Object.keys(grid[d]).sort((a,b) => TIME_TO_NUM(a) - TIME_TO_NUM(b));
+    if (times.length === 0) return;
+    html += '<div class="timetable"><div class="timetable-day">' + d + '요일</div>';
+    times.forEach(t => {
+      const slots = Object.values(grid[d][t]);
+      html += '<div class="timetable-row"><div class="timetable-time">' + t + '</div><div class="timetable-slots">';
+      slots.forEach(slot => {
+        const tc = TEACHER_CLASS(slot.teacher);
+        const tname = TEACHER_NAMES[slot.teacher] || (slot.teacher ? slot.teacher : '특강');
+        html += '<div class="timetable-slot ' + tc + '"><span class="room-pill">' + (slot.room || '').replace('강의실','강') + '</span><span class="teacher-name">' + tname + '</span><span class="stu-list">' + slot.students.join(', ') + '</span></div>';
       });
-      html += `</div></div>`;
+      html += '</div></div>';
     });
-    html += `</div>`;
+    html += '</div>';
   });
-  document.getElementById('timetableList').innerHTML = html || '<div class="empty">표시할 시간표가 없습니다</div>';
+  document.getElementById('timetableList').innerHTML = html || emptyState('시간표 없음', '');
+}
+
+function emptyState(title, msg) {
+  return '<div class="empty"><div class="empty-icon">📭</div><div class="empty-title">' + title + '</div><div>' + msg + '</div></div>';
 }
 </script>
 
